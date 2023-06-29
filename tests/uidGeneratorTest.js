@@ -1,4 +1,4 @@
-require("../../../psknode/bundles/pskruntime");
+require("../../../builds/output/pskruntime");
 const psk_crypto = require("pskcrypto");
 const assert = require("double-check").assert;
 
