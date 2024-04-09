@@ -14,7 +14,7 @@ const keyToJWK = async (key) => {
     if (!key.extractable) {
         throw new TypeError('non-extractable CryptoKey cannot be exported:a JWK');
     }
-    const { ext, key_ops, alg, use, ...jwk } = await crypto.subtle.exportKey('jwk', key);
+    const {...jwk } = await crypto.subtle.exportKey('jwk', key);
     return jwk;
 };
 module.exports = keyToJWK;

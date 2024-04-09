@@ -1,6 +1,5 @@
 const {flattenedDecrypt} = require('../flattened/decrypt.js');
 const {JWEInvalid} = require('../../util/errors.js');
-const {decoder} = require('../../lib/buffer_utils.js');
 module.exports.compactDecrypt = async function compactDecrypt(jwe, key, options) {
     if (jwe instanceof Uint8Array) {
         jwe = jwe.toString();

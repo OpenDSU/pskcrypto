@@ -1,7 +1,7 @@
 const {decode: base64url} = require('../../runtime/base64url.js');
 const verify = require('../../runtime/verify.js');
 const {JOSEAlgNotAllowed, JWSInvalid, JWSSignatureVerificationFailed} = require('../../util/errors.js');
-const {concat, encoder, decoder} = require('../../lib/buffer_utils.js');
+const {concat} = require('../../lib/buffer_utils.js');
 const isDisjoint = require('../../lib/is_disjoint.js');
 const isObject = require('../../lib/is_object.js');
 const checkKeyType = require('../../lib/check_key_type.js');

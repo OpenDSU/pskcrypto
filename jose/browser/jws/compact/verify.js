@@ -1,6 +1,5 @@
 const {flattenedVerify} = require('../flattened/verify.js');
 const {JWSInvalid} = require('../../util/errors.js');
-const {decoder} = require('../../lib/buffer_utils.js');
 module.exports.compactVerify =  async function compactVerify(jws, key, options) {
     if (jws instanceof Uint8Array) {
         jws = jws.toString();

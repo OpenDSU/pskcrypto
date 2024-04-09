@@ -83,7 +83,7 @@ exports.hashStringArray = function (counter, arr, payloadSize){
     }
 
     hash.update(result);
-    var result = hash.digest('hex');
+    result = hash.digest('hex');
     return result;
 }
 
@@ -103,16 +103,15 @@ function dumpMember(obj){
 
     switch(type){
         case "number":
-        case "string":return obj.toString(); break;
-        case "object": return exports.dumpObjectForHashing(obj); break;
-        case "boolean": return  obj? "true": "false"; break;
+        case "string":return obj.toString();
+        case "object": return exports.dumpObjectForHashing(obj);
+        case "boolean": return  obj? "true": "false";
         case "array":
             var result = "";
             for(var i=0; i < obj.length; i++){
                 result += exports.dumpObjectForHashing(obj[i]);
             }
             return result;
-            break;
         default:
             throw new Error("Type " +  type + " cannot be cryptographically digested");
     }

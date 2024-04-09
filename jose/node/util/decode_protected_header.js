@@ -9,7 +9,7 @@ function decodeProtectedHeader(token) {
     if (typeof token === 'string') {
         const parts = token.split('.');
         if (parts.length === 3 || parts.length === 5) {
-            ;
+            
             [protectedB64u] = parts;
         }
     }

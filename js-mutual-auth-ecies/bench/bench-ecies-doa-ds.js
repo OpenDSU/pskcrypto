@@ -8,11 +8,11 @@ const msgNo = 500
 const msgSize = 100
 
 // Generate an array of random messages
-msgArray = new Array(msgNo)
+const msgArray = new Array(msgNo)
 for (let i = 0; i < msgNo ; ++i) {
     msgArray[i] = crypto.pseudoRandomBytes(msgSize)
 }
-encArray = new Array(msgNo)
+const encArray = new Array(msgNo)
 
 // Generate Alice's EC signing key pair
 let aliceECSigningKeyPair = crypto.generateKeyPairSync(

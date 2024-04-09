@@ -1,5 +1,4 @@
 const {JWTClaimValidationFailed, JWTExpired, JWTInvalid} = require('../util/errors.js');
-const {decoder} = require('./buffer_utils.js');
 const epoch = require('./epoch.js');
 const secs = require('./secs.js');
 const isObject = require('./is_object.js');

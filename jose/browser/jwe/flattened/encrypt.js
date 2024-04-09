@@ -5,7 +5,6 @@ const generateIv = require('../../lib/iv.js');
 const encryptKeyManagement = require('../../lib/encrypt_key_management.js');
 const {JOSENotSupported, JWEInvalid} = require('../../util/errors.js');
 const isDisjoint = require('../../lib/is_disjoint.js');
-const {encoder, decoder, concat} = require('../../lib/buffer_utils.js');
 const validateCrit = require('../../lib/validate_crit.js');
 class FlattenedEncrypt {
     constructor(plaintext) {
@@ -136,7 +135,7 @@ class FlattenedEncrypt {
             ({ ciphertext, tag } = await encrypt(enc, deflated, cek, this._iv, additionalData));
         }
         else {
-            ;
+            
             ({ ciphertext, tag } = await encrypt(enc, this._plaintext, cek, this._iv, additionalData));
         }
         const jwe = {

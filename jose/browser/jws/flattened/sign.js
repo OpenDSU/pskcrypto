@@ -2,7 +2,6 @@ const {encode: base64url} = require('../../runtime/base64url.js');
 const sign = require('../../runtime/sign.js');
 const isDisjoint = require('../../lib/is_disjoint.js');
 const {JWSInvalid} = require('../../util/errors.js');
-const {encoder, decoder, concat} = require('../../lib/buffer_utils.js');
 const checkKeyType = require('../../lib/check_key_type.js');
 const validateCrit = require('../../lib/validate_crit.js');
 class FlattenedSign {

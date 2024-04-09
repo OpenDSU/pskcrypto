@@ -1,12 +1,11 @@
 const {decode: base64url} = require('./base64url.js');
-const {decoder} = require('../lib/buffer_utils.js');
 const isObject = require('../lib/is_object.js');
 module.exports.decodeProtectedHeader = function decodeProtectedHeader(token) {
     let protectedB64u;
     if (typeof token === 'string') {
         const parts = token.split('.');
         if (parts.length === 3 || parts.length === 5) {
-            ;
+            
             [protectedB64u] = parts;
         }
     } else if (typeof token === 'object' && token) {

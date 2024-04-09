@@ -7,11 +7,11 @@ const msgNo = 500
 const msgSize = 100
 
 // Generate an array of random messages
-msgArray = new Array(msgNo)
-for (i = 0; i < msgNo ; ++i) {
+const msgArray = new Array(msgNo)
+for (let i = 0; i < msgNo ; ++i) {
     msgArray[i] = crypto.pseudoRandomBytes(msgSize)
 }
-encArray = new Array(msgNo)
+const encArray = new Array(msgNo)
 
 let bobECDH = crypto.createECDH(curveName)
 let bobECDHPublicKey = bobECDH.generateKeys();

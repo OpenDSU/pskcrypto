@@ -1,5 +1,4 @@
 const {CompactEncrypt} = require('../jwe/compact/encrypt.js');
-const {encoder} = require('../lib/buffer_utils.js');
 const {ProduceJWT} = require('./produce.js');
 class EncryptJWT extends ProduceJWT {
     setProtectedHeader(protectedHeader) {

@@ -1,5 +1,4 @@
 const base64url = require('../runtime/base64url.js');
-const {decoder} = require('../lib/buffer_utils.js');
 const {JWTInvalid} = require('../util/errors.js');
 const jwtPayload = require('../lib/jwt_claims_set.js');
 const {ProduceJWT} = require('./produce.js');

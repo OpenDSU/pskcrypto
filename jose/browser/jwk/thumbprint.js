@@ -1,7 +1,6 @@
 const digest = require('../runtime/digest.js');
 const {encode: base64url} = require('../runtime/base64url.js');
 const {JOSENotSupported, JWKInvalid} = require('../util/errors.js');
-const {encoder} = require('../lib/buffer_utils.js');
 const isObject = require('../lib/is_object.js');
 const check = (value, description) => {
     if (typeof value !== 'string' || !value) {

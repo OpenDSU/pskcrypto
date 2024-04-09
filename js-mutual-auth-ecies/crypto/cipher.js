@@ -1,8 +1,6 @@
 'use strict';
 
 const crypto = require('crypto');
-const config = require('../config')
-
 
 function symmetricEncrypt(key, plaintext, iv, options) {
     if (key.length !== options.symmetricCipherKeySize) {

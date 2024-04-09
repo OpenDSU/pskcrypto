@@ -5,7 +5,6 @@ const {JOSEAlgNotAllowed, JOSENotSupported, JWEInvalid} = require('../../util/er
 const isDisjoint = require('../../lib/is_disjoint.js');
 const isObject = require('../../lib/is_object.js');
 const decryptKeyManagement = require('../../lib/decrypt_key_management.js');
-const {encoder, decoder, concat} = require('../../lib/buffer_utils.js');
 const generateCek = require('../../lib/cek.js');
 const validateCrit = require('../../lib/validate_crit.js');
 const validateAlgorithms = require('../../lib/validate_algorithms.js');
@@ -108,7 +107,7 @@ module.exports.flattenedDecrypt = async function flattenedDecrypt(jwe, key, opti
     const protectedHeader = $$.Buffer.from((_a = jwe.protected) !== null && _a !== void 0 ? _a : '');
     let additionalData;
     if (jwe.aad !== undefined) {
-        additionalData = concat(protectedHeader, $$.Buffer.from('.'), $$.Buffer.from(jwe.aad));
+        additionalData = $$.Buffer.concat(protectedHeader, $$.Buffer.from('.'), $$.Buffer.from(jwe.aad));
     }
     else {
         additionalData = protectedHeader;

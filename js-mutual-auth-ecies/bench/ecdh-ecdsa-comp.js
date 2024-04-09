@@ -28,11 +28,11 @@ for (let i = 0 ; i < iterations ; ++i) {
 var totalHRTime = process.hrtime(startTime);
 var ecdhTimeSecs = (totalHRTime[0]* NS_PER_SEC + totalHRTime[1]) / NS_PER_SEC
 
-var startTime = process.hrtime();
+startTime = process.hrtime();
 for (let i = 0 ; i < iterations ; ++i) {
     mycrypto.computeDigitalSignature(aliceECSigningKeyPair.privateKey, message, config)
 }
-var totalHRTime = process.hrtime(startTime);
+totalHRTime = process.hrtime(startTime);
 var ecdsaTimeSecs = (totalHRTime[0]* NS_PER_SEC + totalHRTime[1]) / NS_PER_SEC
 
 console.log("ECDH Derive Shared Secret vs ECDSA Performance Comparison: " + iterations + " iterations")

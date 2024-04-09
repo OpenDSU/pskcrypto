@@ -1,7 +1,6 @@
 'use strict';
 
 const crypto = require('crypto');
-const config = require('../config');
 
 function computeKMAC(key, data, options) {
     if (key.length !== options.macKeySize) {

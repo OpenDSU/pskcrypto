@@ -20,9 +20,6 @@ function SignsensusSignatureChain(agent, PROOF_BLOCK_SIZE , loader){
     var signatureIndex = [];
 
 
-    var __internal = {};
-
-
     function generatePublicAndPrivateKeys(myCounter){
 
 
@@ -49,7 +46,7 @@ function SignsensusSignatureChain(agent, PROOF_BLOCK_SIZE , loader){
         var digestForSigning = [digest, nextPublic];
 
 
-        var digest = ssutil.hashValues(digestForSigning);
+        digest = ssutil.hashValues(digestForSigning);
         const directDigest = $$.Buffer.from(digest, 'hex');
         const nonDigest = $$.Buffer.alloc(32);
         for(var i=0; i< 32; i++){

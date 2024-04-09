@@ -39,10 +39,6 @@ function uint32be(value) {
     return buf;
 }
 
-function lengthAndInput(input) {
-    return concat(uint32be(input.length), input);
-}
-
 async function concatKdf(digest, secret, bits, value) {
     const iterations = Math.ceil((bits >> 3) / 32);
     let res;

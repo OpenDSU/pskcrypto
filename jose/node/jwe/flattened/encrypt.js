@@ -139,7 +139,7 @@ class FlattenedEncrypt {
             ({ ciphertext, tag } = await (0, encrypt_js_1.default)(enc, deflated, cek, this._iv, additionalData));
         }
         else {
-            ;
+            
             ({ ciphertext, tag } = await (0, encrypt_js_1.default)(enc, this._plaintext, cek, this._iv, additionalData));
         }
         const jwe = {

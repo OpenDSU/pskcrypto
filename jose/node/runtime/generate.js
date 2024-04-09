@@ -7,7 +7,7 @@ const random_js_1 = require("./random.js");
 const check_modulus_length_js_1 = require("./check_modulus_length.js");
 const errors_js_1 = require("../util/errors.js");
 const generate = (0, util_1.promisify)(crypto_1.generateKeyPair);
-async function generateSecret(alg, options) {
+async function generateSecret(alg) {
     let length;
     switch (alg) {
         case 'HS256':

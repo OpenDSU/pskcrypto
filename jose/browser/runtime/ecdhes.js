@@ -1,4 +1,4 @@
-const {encoder, concat, uint32be, lengthAndInput, concatKdf} = require('../lib/buffer_utils.js');
+const { concat, uint32be, lengthAndInput, concatKdf} = require('../lib/buffer_utils.js');
 const crypto = require('./webcrypto.js');
 const {checkEncCryptoKey} = require('../lib/crypto_key.js');
 const digest = require('./digest.js');

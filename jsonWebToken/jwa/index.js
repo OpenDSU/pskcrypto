@@ -41,7 +41,7 @@ function checkIsPublicKey(key) {
     if (typeof key.export !== 'function') {
         throw typeError(MSG_INVALID_VERIFIER_KEY);
     }
-};
+}
 
 function checkIsPrivateKey(key) {
     if ($$.Buffer.isBuffer(key)) {
@@ -57,7 +57,7 @@ function checkIsPrivateKey(key) {
     }
 
     throw typeError(MSG_INVALID_SIGNER_KEY);
-};
+}
 
 function checkIsSecretKey(key) {
     if ($$.Buffer.isBuffer(key)) {

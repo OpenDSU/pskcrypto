@@ -1,7 +1,6 @@
 'use strict';
 
 const mycrypto = require('../crypto')
-const config = require('../config')
 const crypto = require('crypto');
 
 // Prevent benign malleability
