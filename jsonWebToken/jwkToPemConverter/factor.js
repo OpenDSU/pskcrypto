@@ -10,12 +10,14 @@ function rand(low, high) {
     let b;
     do {
         b = new BN(crypto.randomBytes(high.byteLength()))
-    } while(b.cmp(low) <= 0 || b.cmp(high) >= 0)
+    } while (b.cmp(low) <= 0 || b.cmp(high) >= 0)
     return b
 }
 
 function odd(n) {
-    if (n.cmp(zero) === 0) { return zero }
+    if (n.cmp(zero) === 0) {
+        return zero
+    }
     let r = n
     while (r.isEven()) {
         r = r.div(two)

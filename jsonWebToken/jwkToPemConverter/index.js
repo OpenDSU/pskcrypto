@@ -125,20 +125,21 @@ function decodePrivate(buffer, extras) {
 
 function getDecoder(header) {
     let match = /^-----BEGIN (RSA )?(PUBLIC|PRIVATE) KEY-----$/.exec(header)
-    if (!match) { return null }
+    if (!match) {
+        return null
+    }
     let isRSA = !!(match[1])
     let isPrivate = (match[2] === 'PRIVATE')
     if (isPrivate) {
         return isRSA ? decodeRsaPrivate : decodePrivate
-    }
-    else {
+    } else {
         return isRSA ? decodeRsaPublic : decodePublic
     }
 }
 
 function pem2jwk(pem, extras) {
     let text = pem.toString().split(/(\r\n|\r|\n)+/g)
-    text = text.filter(function(line) {
+    text = text.filter(function (line) {
         return line.trim().length !== 0
     });
     let decoder = getDecoder(text[0])
@@ -192,8 +193,7 @@ function jwk2pem(json) {
         }
         jwk.version = 'two-prime'
         data = RSAPrivateKey.encode(jwk, 'der')
-    }
-    else {
+    } else {
         data = RSAPublicKey.encode(jwk, 'der')
     }
     let body = data.toString('base64').match(/.{1,64}/g).join('\n')

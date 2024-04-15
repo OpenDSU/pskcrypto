@@ -12,8 +12,11 @@ function isObject(thing) {
 function safeJsonParse(thing) {
     if (isObject(thing))
         return thing;
-    try { return JSON.parse(thing); }
-    catch (e) { return undefined; }
+    try {
+        return JSON.parse(thing);
+    } catch (e) {
+        return undefined;
+    }
 }
 
 function headerFromJWS(jwsSig) {
@@ -77,7 +80,7 @@ function jwsDecode(jwsSig, opts) {
 
 function VerifyStream(opts) {
     opts = opts || {};
-    let secretOrKey = opts.secret||opts.publicKey||opts.key;
+    let secretOrKey = opts.secret || opts.publicKey || opts.key;
     let secretStream = new DataStream(secretOrKey);
     this.readable = true;
     this.algorithm = opts.algorithm;
@@ -94,6 +97,7 @@ function VerifyStream(opts) {
             this.verify();
     }.bind(this));
 }
+
 util.inherits(VerifyStream, Stream);
 VerifyStream.prototype.verify = function verify() {
     try {

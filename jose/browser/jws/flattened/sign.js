@@ -1,7 +1,6 @@
 const {encode: base64url} = require('../../runtime/base64url.js');
 const sign = require('../../runtime/sign.js');
 const isDisjoint = require('../../lib/is_disjoint.js');
-const {concat} = require('../../lib/buffer_utils.js');
 const {JWSInvalid} = require('../../util/errors.js');
 const {concat} = require('../../lib/buffer_utils.js');
 const checkKeyType = require('../../lib/check_key_type.js');

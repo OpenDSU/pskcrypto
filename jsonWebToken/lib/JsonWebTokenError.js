@@ -1,6 +1,6 @@
 const JsonWebTokenError = function (message, error) {
     Error.call(this, message);
-    if(Error.captureStackTrace) {
+    if (Error.captureStackTrace) {
         Error.captureStackTrace(this, this.constructor);
     }
     this.name = 'JsonWebTokenError';

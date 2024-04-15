@@ -53,7 +53,6 @@ module.exports.receiverMultiRecipientECIESDecrypt = function (receiverECDHKeyPai
         if (isECIESEnvelopeForInputECDHPublicKey(curRecipientECIESEnvelope, receiverECDHKeyPair.publicKey, options)) {
             message = ecies.decrypt(receiverECDHKeyPair.privateKey, curRecipientECIESEnvelope, options)
             myECIESInstanceFound = true;
-            return;
         }
     })
     if (!myECIESInstanceFound) {

@@ -3,17 +3,20 @@ let jws = require('./jws');
 module.exports = function (jwt, options) {
     options = options || {};
     let decoded = jws.decode(jwt, options);
-    if (!decoded) { return null; }
+    if (!decoded) {
+        return null;
+    }
     let payload = decoded.payload;
 
     //try parse the payload
-    if(typeof payload === 'string') {
+    if (typeof payload === 'string') {
         try {
             let obj = JSON.parse(payload);
-            if(obj !== null && typeof obj === 'object') {
+            if (obj !== null && typeof obj === 'object') {
                 payload = obj;
             }
-        } catch (e) { }
+        } catch (e) {
+        }
     }
 
     //return header if `complete` option is enabled.  header includes claims
