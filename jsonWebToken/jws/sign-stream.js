@@ -32,7 +32,7 @@ function jwsSign(opts) {
 }
 
 function SignStream(opts) {
-    let secret = opts.secret || opts.privateKey || opts.key;
+    let secret = opts.secret||opts.privateKey||opts.key;
     let secretStream = new DataStream(secret);
     this.readable = true;
     this.header = opts.header;
@@ -49,7 +49,6 @@ function SignStream(opts) {
             this.sign();
     }.bind(this));
 }
-
 util.inherits(SignStream, Stream);
 
 SignStream.prototype.sign = function sign() {

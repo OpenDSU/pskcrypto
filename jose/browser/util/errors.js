@@ -1,6 +1,6 @@
 class JOSEError extends Error {
     constructor(message) {
-        var _a;
+        let _a;
         super(message);
         this.code = 'ERR_JOSE_GENERIC';
         this.name = this.constructor.name;

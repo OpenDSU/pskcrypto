@@ -31,7 +31,7 @@ const getLengthOfSeqIndex = (sequence, index) => {
     return getLength(sequence.subarray(2 + num), index);
 };
 const getModulusLength = (key) => {
-    var _a, _b;
+    let _a, _b;
     if (exports.weakMap.has(key)) {
         return exports.weakMap.get(key);
     }

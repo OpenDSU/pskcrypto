@@ -8,8 +8,7 @@ const verify = async (alg, key, signature, data) => {
     const algorithm = subtleAlgorithm(alg, cryptoKey.algorithm.namedCurve);
     try {
         return await crypto.subtle.verify(algorithm, cryptoKey, signature, data);
-    }
-    catch (_a) {
+    } catch (_a) {
         return false;
     }
 };

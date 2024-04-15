@@ -14,7 +14,7 @@ const validate_crit_js_1 = require("../../lib/validate_crit.js");
 const validate_algorithms_js_1 = require("../../lib/validate_algorithms.js");
 
 async function flattenedDecrypt(jwe, key, options) {
-    var _a;
+    let _a;
     if (!(0, is_object_js_1.default)(jwe)) {
         throw new errors_js_1.JWEInvalid('Flattened JWE must be an object');
     }

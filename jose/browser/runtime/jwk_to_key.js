@@ -124,7 +124,7 @@ function subtleMapping(jwk) {
 }
 
 const parse = async (jwk) => {
-    var _a, _b;
+    let _a, _b;
     const {algorithm, keyUsages} = subtleMapping(jwk);
     const rest = [
         algorithm,

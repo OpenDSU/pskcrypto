@@ -27,7 +27,7 @@ const namedCurveToJOSE = (namedCurve) => {
     }
 };
 const getNamedCurve = (kee, raw) => {
-    var _a;
+    let _a;
     let key;
     if ((0, webcrypto_js_1.isCryptoKey)(kee)) {
         key = crypto_1.KeyObject.from(kee);

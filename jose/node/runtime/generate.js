@@ -39,7 +39,7 @@ async function generateSecret(alg) {
 exports.generateSecret = generateSecret;
 
 async function generateKeyPair(alg, options) {
-    var _a, _b;
+    let _a, _b;
     switch (alg) {
         case 'RS256':
         case 'RS384':

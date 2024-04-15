@@ -4,7 +4,7 @@ const {JOSENotSupported} = require('../util/errors.js');
 const crypto = require("crypto");
 
 async function generateSecret(alg, options) {
-    var _a;
+    let _a;
     let length;
     let algorithm;
     let keyUsages;
@@ -45,7 +45,7 @@ async function generateSecret(alg, options) {
 }
 
 function getModulusLengthOption(options) {
-    var _a;
+    let _a;
     const modulusLength = (_a = options === null || options === void 0 ? void 0 : options.modulusLength) !== null && _a !== void 0 ? _a : 2048;
     if (typeof modulusLength !== 'number' || modulusLength < 2048) {
         throw new JOSENotSupported('Invalid or unsupported modulusLength option provided, 2048 bits or larger keys must be used');
@@ -54,7 +54,7 @@ function getModulusLengthOption(options) {
 }
 
 async function generateKeyPair(alg, options) {
-    var _a, _b;
+    let _a, _b;
     let algorithm;
     let keyUsages;
     switch (alg) {

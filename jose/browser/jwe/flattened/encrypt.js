@@ -77,9 +77,7 @@ class FlattenedEncrypt {
             throw new JWEInvalid('JWE Shared Protected, JWE Shared Unprotected and JWE Per-Recipient Header Parameter names must be disjoint');
         }
         const joseHeader = {
-            ...this._protectedHeader,
-            ...this._unprotectedHeader,
-            ...this._sharedUnprotectedHeader,
+            ...this._protectedHeader, ...this._unprotectedHeader, ...this._sharedUnprotectedHeader,
         };
         validateCrit(JWEInvalid, new Map(), options === null || options === void 0 ? void 0 : options.crit, this._protectedHeader, joseHeader);
         if (joseHeader.zip !== undefined) {
@@ -111,9 +109,7 @@ class FlattenedEncrypt {
         {
             let parameters;
             ({
-                cek,
-                encryptedKey,
-                parameters
+                cek, encryptedKey, parameters
             } = await encryptKeyManagement(alg, enc, key, this._cek, this._keyManagementParameters));
             if (parameters) {
                 if (!this._protectedHeader) {
@@ -148,9 +144,7 @@ class FlattenedEncrypt {
             ({ciphertext, tag} = await encrypt(enc, this._plaintext, cek, this._iv, additionalData));
         }
         const jwe = {
-            ciphertext: base64url(ciphertext),
-            iv: base64url(this._iv),
-            tag: base64url(tag),
+            ciphertext: base64url(ciphertext), iv: base64url(this._iv), tag: base64url(tag),
         };
         if (encryptedKey) {
             jwe.encrypted_key = base64url(encryptedKey);
