@@ -34,7 +34,7 @@ module.exports.encrypt = function (message, ...receiverECDHPublicKeys) {
     }
 
     receiverECDHPublicKeys.push(options);
-    const { symmetricCipherKey, ciphertextMacKey, recvsMacKey } = utils.generateKeyBufferParams(options)
+    const {symmetricCipherKey, ciphertextMacKey, recvsMacKey} = utils.generateKeyBufferParams(options)
     const multiRecipientECIESBuffer = utils.senderMultiRecipientECIESEncrypt(
         $$.Buffer.concat([symmetricCipherKey, ciphertextMacKey, recvsMacKey],
             symmetricCipherKey.length + ciphertextMacKey.length + recvsMacKey.length),

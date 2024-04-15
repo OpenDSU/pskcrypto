@@ -1,6 +1,5 @@
-/*global module, process*/
-var Stream = require('stream');
-var util = require('util');
+let Stream = require('stream');
+let util = require('util');
 
 function DataStream(data) {
     this.buffer = null;
@@ -33,8 +32,9 @@ function DataStream(data) {
         return this;
     }
 
-    throw new TypeError('Unexpected data type ('+ typeof data + ')');
+    throw new TypeError('Unexpected data type (' + typeof data + ')');
 }
+
 util.inherits(DataStream, Stream);
 
 DataStream.prototype.write = function write(data) {

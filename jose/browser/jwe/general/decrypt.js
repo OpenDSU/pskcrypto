@@ -20,8 +20,7 @@ module.exports.generalDecrypt = async function generalDecrypt(jwe, key, options)
                 tag: jwe.tag,
                 unprotected: jwe.unprotected,
             }, key, options);
-        }
-        catch (_a) {
+        } catch (_a) {
         }
     }
     throw new JWEDecryptionFailed();

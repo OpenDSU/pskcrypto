@@ -1,9 +1,10 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.decode = exports.encode = exports.encodeBase64 = exports.decodeBase64 = void 0;
 const buffer_1 = require("buffer");
 const buffer_utils_js_1 = require("../lib/buffer_utils.js");
 let encodeImpl;
+
 function normalize(input) {
     let encoded = input;
     if (encoded instanceof Uint8Array) {
@@ -11,10 +12,10 @@ function normalize(input) {
     }
     return encoded;
 }
+
 if (buffer_1.Buffer.isEncoding('base64url')) {
     encodeImpl = (input) => buffer_1.Buffer.from(input).toString('base64url');
-}
-else {
+} else {
     encodeImpl = (input) => buffer_1.Buffer.from(input).toString('base64').replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
 }
 const decodeBase64 = (input) => buffer_1.Buffer.from(input, 'base64');

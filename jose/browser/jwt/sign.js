@@ -1,6 +1,5 @@
 const {CompactSign} = require('../jws/compact/sign.js');
 const {JWTInvalid} = require('../util/errors.js');
-const {encoder} = require('../lib/buffer_utils.js');
 const {ProduceJWT} = require('./produce.js');
 
 class SignJWT extends ProduceJWT {

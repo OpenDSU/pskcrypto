@@ -1,21 +1,16 @@
-require("../../../builds/output/pskruntime");
+require("../../../builds/output/testsRuntime");
 const psk_crypto = require("pskcrypto");
-const assert = require("double-check").assert;
 
 
 psk_crypto.uidGenerator.registerObserver(function(err, stats){
 	console.log("Received: ", stats);
 });
 
-var crypto = require("crypto");
-
-var counter = 0;
-
 function FakeGenerator(){
-	var counter = 0;
+	let counter = 0;
 
 	this.generate = function (size) {
-		var arr = [];
+		let arr = [];
 		for(let i=0; i<size; i++){
 			arr.push(counter++);
 		}
@@ -23,16 +18,16 @@ function FakeGenerator(){
 	}
 
 }
-var fg = new FakeGenerator();
-var fg2 = new FakeGenerator();
-var arr = [];
+let fg = new FakeGenerator();
+let fg2 = new FakeGenerator();
+let arr = [];
 
-var sizes = [128, 100, 87, 32];
+let sizes = [128, 100, 87, 32];
 
 for(let i=0; i<10000; i++){
 	arr.push(i);
 }
-var buff = $$.Buffer.from(arr);
+let buff = $$.Buffer.from(arr);
 /*crypto.randomBytes = function (size, callback) {
 	if(!callback){
 		return fg.generate(size);
@@ -42,13 +37,13 @@ var buff = $$.Buffer.from(arr);
 function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-var prevSize = 0;
-var totalLength = 0;
+let prevSize = 0;
+let totalLength = 0;
 
 
 
-for(var i=0;i<2500;i++) {
-	var size = 128;
+for(let i=0;i<2500;i++) {
+	let size = 128;
 	totalLength+=size;
 	//console.log(buff.slice(prevSize, prevSize+size));
 	setTimeout(function(){

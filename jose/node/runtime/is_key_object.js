@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 const crypto_1 = require("crypto");
 const util = require("util");
 exports.default = util.types.isKeyObject

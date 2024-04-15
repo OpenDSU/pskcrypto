@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 const crypto = require("crypto");
 const util_1 = require("util");
 const dsa_digest_js_1 = require("./dsa_digest.js");
@@ -14,8 +14,7 @@ const oneShotCallbackSupported = major >= 16 || (major === 15 && minor >= 13);
 let oneShotVerify;
 if (crypto.verify.length > 4 && oneShotCallbackSupported) {
     oneShotVerify = (0, util_1.promisify)(crypto.verify);
-}
-else {
+} else {
     oneShotVerify = crypto.verify;
 }
 const verify = async (alg, key, signature, data) => {
@@ -25,8 +24,7 @@ const verify = async (alg, key, signature, data) => {
         const actual = signature;
         try {
             return crypto.timingSafeEqual(actual, expected);
-        }
-        catch {
+        } catch {
             return false;
         }
     }
@@ -34,8 +32,7 @@ const verify = async (alg, key, signature, data) => {
     const keyInput = (0, node_key_js_1.default)(alg, keyObject);
     try {
         return await oneShotVerify(algorithm, data, keyInput, signature);
-    }
-    catch {
+    } catch {
         return false;
     }
 };

@@ -51,7 +51,7 @@ const getNamedCurve = (keyData) => {
     }
 };
 const genericImport = async (replace, keyFormat, pem, alg, options) => {
-    var _a;
+    let _a;
     let algorithm;
     let keyUsages;
     const keyData = new Uint8Array(globalThis

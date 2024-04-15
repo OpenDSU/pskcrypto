@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 const errors_js_1 = require("../util/errors.js");
 const is_key_object_js_1 = require("./is_key_object.js");
 const checkCekLength = (enc, cek) => {

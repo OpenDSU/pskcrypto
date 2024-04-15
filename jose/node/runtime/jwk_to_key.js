@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 const buffer_1 = require("buffer");
 const crypto_1 = require("crypto");
 const base64url_js_1 = require("./base64url.js");
@@ -15,8 +15,8 @@ const jwkImportSupported = major >= 16 || (major === 15 && minor >= 12);
 const parse = (jwk) => {
     if (jwkImportSupported && jwk.kty !== 'oct') {
         return jwk.d
-            ? (0, crypto_1.createPrivateKey)({ format: 'jwk', key: jwk })
-            : (0, crypto_1.createPublicKey)({ format: 'jwk', key: jwk });
+            ? (0, crypto_1.createPrivateKey)({format: 'jwk', key: jwk})
+            : (0, crypto_1.createPublicKey)({format: 'jwk', key: jwk});
     }
     switch (jwk.kty) {
         case 'oct': {
@@ -37,8 +37,7 @@ const parse = (jwk) => {
                 enc.unsignedInteger(buffer_1.Buffer.from(jwk.dp, 'base64'));
                 enc.unsignedInteger(buffer_1.Buffer.from(jwk.dq, 'base64'));
                 enc.unsignedInteger(buffer_1.Buffer.from(jwk.qi, 'base64'));
-            }
-            else {
+            } else {
                 enc.unsignedInteger(modulus);
                 enc.unsignedInteger(exponent);
             }
@@ -79,7 +78,7 @@ const parse = (jwk) => {
                 const f3 = enc$4.end(buffer_1.Buffer.from([0x04]));
                 enc.add(f3);
                 const der = enc.end();
-                const keyObject = (0, crypto_1.createPrivateKey)({ key: der, format: 'der', type: 'pkcs8' });
+                const keyObject = (0, crypto_1.createPrivateKey)({key: der, format: 'der', type: 'pkcs8'});
                 (0, get_named_curve_js_1.setCurve)(keyObject, jwk.crv);
                 return keyObject;
             }
@@ -89,7 +88,7 @@ const parse = (jwk) => {
             enc.add(enc$1.end());
             enc.bitStr(pub);
             const der = enc.end();
-            const keyObject = (0, crypto_1.createPublicKey)({ key: der, format: 'der', type: 'spki' });
+            const keyObject = (0, crypto_1.createPublicKey)({key: der, format: 'der', type: 'spki'});
             (0, get_named_curve_js_1.setCurve)(keyObject, jwk.crv);
             return keyObject;
         }
@@ -106,14 +105,14 @@ const parse = (jwk) => {
                 const f = enc$2.end(buffer_1.Buffer.from([0x04]));
                 enc.add(f);
                 const der = enc.end();
-                return (0, crypto_1.createPrivateKey)({ key: der, format: 'der', type: 'pkcs8' });
+                return (0, crypto_1.createPrivateKey)({key: der, format: 'der', type: 'pkcs8'});
             }
             const enc$1 = new asn1_sequence_encoder_js_1.default();
             enc$1.oidFor(jwk.crv);
             enc.add(enc$1.end());
             enc.bitStr(buffer_1.Buffer.from(jwk.x, 'base64'));
             const der = enc.end();
-            return (0, crypto_1.createPublicKey)({ key: der, format: 'der', type: 'spki' });
+            return (0, crypto_1.createPublicKey)({key: der, format: 'der', type: 'spki'});
         }
         default:
             throw new errors_js_1.JOSENotSupported('Invalid or unsupported JWK "kty" (Key Type) Parameter value');

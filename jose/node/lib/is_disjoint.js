@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 const isDisjoint = (...headers) => {
     const sources = headers.filter(Boolean);
     if (sources.length === 0 || sources.length === 1) {

@@ -19,9 +19,9 @@ module.exports.decrypt = function (receiverECDHPrivateKey, encEnvelope, options)
     Object.assign(defaultOpts, options);
     options = defaultOpts;
     if (typeof encEnvelope === "string") {
-        try{
+        try {
             encEnvelope = JSON.parse(encEnvelope);
-        }   catch (e) {
+        } catch (e) {
             throw Error(`Could not parse encEnvelope ${encEnvelope}`);
         }
     }
@@ -37,7 +37,7 @@ module.exports.decrypt = function (receiverECDHPrivateKey, encEnvelope, options)
     const sharedSecret = ephemeralKeyAgreement.computeSharedSecretFromKeyPair(receiverECDHPrivateKey, ephemeralPublicKey)
 
     const kdfInput = common.computeKDFInput(ephemeralPublicKey, sharedSecret)
-    const { symmetricEncryptionKey, macKey } = common.computeSymmetricEncAndMACKeys(kdfInput, options)
+    const {symmetricEncryptionKey, macKey} = common.computeSymmetricEncAndMACKeys(kdfInput, options)
 
     const ciphertext = $$.Buffer.from(encEnvelope.ct, options.encodingFormat)
     const tag = $$.Buffer.from(encEnvelope.tag, options.encodingFormat)

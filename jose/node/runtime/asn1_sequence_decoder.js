@@ -1,7 +1,8 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 const tagInteger = 0x02;
 const tagSequence = 0x30;
+
 class Asn1SequenceDecoder {
     constructor(buffer) {
         if (buffer[0] !== tagSequence) {
@@ -14,6 +15,7 @@ class Asn1SequenceDecoder {
             throw new TypeError();
         }
     }
+
     decodeLength() {
         let length = this.buffer[this.offset++];
         if (length & 0x80) {
@@ -25,6 +27,7 @@ class Asn1SequenceDecoder {
         }
         return length;
     }
+
     unsignedInteger() {
         if (this.buffer[this.offset++] !== tagInteger) {
             throw new TypeError();
@@ -38,10 +41,12 @@ class Asn1SequenceDecoder {
         this.offset += length;
         return result;
     }
+
     end() {
         if (this.offset !== this.buffer.length) {
             throw new TypeError();
         }
     }
 }
+
 exports.default = Asn1SequenceDecoder;

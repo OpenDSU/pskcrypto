@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 const buffer_1 = require("buffer");
 const errors_js_1 = require("../util/errors.js");
 const tagInteger = 0x02;
@@ -33,11 +33,13 @@ const oids = new Map([
     ['Ed25519', buffer_1.Buffer.from('06 03 2B 65 70'.replace(/ /g, ''), 'hex')],
     ['Ed448', buffer_1.Buffer.from('06 03 2B 65 71'.replace(/ /g, ''), 'hex')],
 ]);
+
 class DumbAsn1Encoder {
     constructor() {
         this.length = 0;
         this.elements = [];
     }
+
     oidFor(oid) {
         const bOid = oids.get(oid);
         if (!bOid) {
@@ -46,21 +48,23 @@ class DumbAsn1Encoder {
         this.elements.push(bOid);
         this.length += bOid.length;
     }
+
     zero() {
         this.elements.push(bTagInteger, buffer_1.Buffer.from([0x01]), bZero);
         this.length += 3;
     }
+
     one() {
         this.elements.push(bTagInteger, buffer_1.Buffer.from([0x01]), buffer_1.Buffer.from([0x01]));
         this.length += 3;
     }
+
     unsignedInteger(integer) {
         if (integer[0] & 0x80) {
             const len = encodeLength(integer.length + 1);
             this.elements.push(bTagInteger, len, bZero, integer);
             this.length += 2 + len.length + integer.length;
-        }
-        else {
+        } else {
             let i = 0;
             while (integer[i] === 0 && (integer[i + 1] & 0x80) === 0)
                 i++;
@@ -69,23 +73,28 @@ class DumbAsn1Encoder {
             this.length += 1 + len.length + integer.length - i;
         }
     }
+
     octStr(octStr) {
         const len = encodeLength(octStr.length);
         this.elements.push(bTagOctStr, encodeLength(octStr.length), octStr);
         this.length += 1 + len.length + octStr.length;
     }
+
     bitStr(bitS) {
         const len = encodeLength(bitS.length + 1);
         this.elements.push(bTagBitStr, encodeLength(bitS.length + 1), bZero, bitS);
         this.length += 1 + len.length + bitS.length + 1;
     }
+
     add(seq) {
         this.elements.push(seq);
         this.length += seq.length;
     }
+
     end(tag = bTagSequence) {
         const len = encodeLength(this.length);
         return buffer_1.Buffer.concat([tag, len, ...this.elements], 1 + len.length + this.length);
     }
 }
+
 exports.default = DumbAsn1Encoder;

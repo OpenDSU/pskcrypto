@@ -1,16 +1,20 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.checkEncCryptoKey = exports.checkSigCryptoKey = void 0;
 const global_js_1 = require("../runtime/global.js");
+
 function unusable(name, prop = 'algorithm.name') {
     return new TypeError(`CryptoKey does not support this operation, its ${prop} must be ${name}`);
 }
+
 function isAlgorithm(algorithm, name) {
     return algorithm.name === name;
 }
+
 function getHashLength(hash) {
     return parseInt(hash.name.substr(4), 10);
 }
+
 function getNamedCurve(alg) {
     switch (alg) {
         case 'ES256':
@@ -23,22 +27,22 @@ function getNamedCurve(alg) {
             throw new Error('unreachable');
     }
 }
+
 function checkUsage(key, usages) {
     if (usages.length && !usages.some((expected) => key.usages.includes(expected))) {
         let msg = 'CryptoKey does not support this operation, its usages must include ';
         if (usages.length > 2) {
             const last = usages.pop();
             msg += `one of ${usages.join(', ')}, or ${last}.`;
-        }
-        else if (usages.length === 2) {
+        } else if (usages.length === 2) {
             msg += `one of ${usages[0]} or ${usages[1]}.`;
-        }
-        else {
+        } else {
             msg += `${usages[0]}.`;
         }
         throw new TypeError(msg);
     }
 }
+
 function checkSigCryptoKey(key, alg, ...usages) {
     switch (alg) {
         case 'HS256':
@@ -100,7 +104,9 @@ function checkSigCryptoKey(key, alg, ...usages) {
     }
     checkUsage(key, usages);
 }
+
 exports.checkSigCryptoKey = checkSigCryptoKey;
+
 function checkEncCryptoKey(key, alg, ...usages) {
     switch (alg) {
         case 'A128GCM':
@@ -152,4 +158,5 @@ function checkEncCryptoKey(key, alg, ...usages) {
     }
     checkUsage(key, usages);
 }
+
 exports.checkEncCryptoKey = checkEncCryptoKey;

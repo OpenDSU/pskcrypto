@@ -1,21 +1,24 @@
-var asn = require('../../lib/asn1/asn1');
-var crypto = require('crypto')
-var BN = asn.bignum
+let asn = require('../../lib/asn1/asn1');
+let crypto = require('crypto')
+let BN = asn.bignum
 
-var zero = new BN(0)
-var one = new BN(1)
-var two = new BN(2)
+let zero = new BN(0)
+let one = new BN(1)
+let two = new BN(2)
 
 function rand(low, high) {
+    let b;
     do {
-        var b = new BN(crypto.randomBytes(high.byteLength()))
-    } while(b.cmp(low) <= 0 || b.cmp(high) >= 0)
+        b = new BN(crypto.randomBytes(high.byteLength()))
+    } while (b.cmp(low) <= 0 || b.cmp(high) >= 0)
     return b
 }
 
 function odd(n) {
-    if (n.cmp(zero) === 0) { return zero }
-    var r = n
+    if (n.cmp(zero) === 0) {
+        return zero
+    }
+    let r = n
     while (r.isEven()) {
         r = r.div(two)
     }
@@ -23,8 +26,8 @@ function odd(n) {
 }
 
 function rootOne(x, r, n) {
-    var i = x.toRed(BN.red(n)).redPow(r).fromRed()
-    var o = zero
+    let i = x.toRed(BN.red(n)).redPow(r).fromRed()
+    let o = zero
     while (i.cmp(one) !== 0) {
         o = i
         i = i.mul(i).mod(n)
@@ -36,16 +39,16 @@ function rootOne(x, r, n) {
 }
 
 function factor(e, d, n) {
-    var k = e.mul(d).sub(one)
-    var r = odd(k)
+    let k = e.mul(d).sub(one)
+    let r = odd(k)
+    let y;
     do {
-        var y = rootOne(rand(two, n), r, n)
+        y = rootOne(rand(two, n), r, n)
     } while (y.cmp(zero) === 0)
 
-    var p = y.sub(one).gcd(n)
+    let p = y.sub(one).gcd(n)
     return {
-        p: p,
-        q: n.div(p)
+        p: p, q: n.div(p)
     }
 }
 

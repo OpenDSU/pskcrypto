@@ -1,19 +1,22 @@
-var jws = require('./jws');
+let jws = require('./jws');
 
 module.exports = function (jwt, options) {
     options = options || {};
-    var decoded = jws.decode(jwt, options);
-    if (!decoded) { return null; }
-    var payload = decoded.payload;
+    let decoded = jws.decode(jwt, options);
+    if (!decoded) {
+        return null;
+    }
+    let payload = decoded.payload;
 
     //try parse the payload
-    if(typeof payload === 'string') {
+    if (typeof payload === 'string') {
         try {
-            var obj = JSON.parse(payload);
-            if(obj !== null && typeof obj === 'object') {
+            let obj = JSON.parse(payload);
+            if (obj !== null && typeof obj === 'object') {
                 payload = obj;
             }
-        } catch (e) { }
+        } catch (e) {
+        }
     }
 
     //return header if `complete` option is enabled.  header includes claims

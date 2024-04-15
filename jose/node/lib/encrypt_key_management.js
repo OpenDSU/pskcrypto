@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 const aeskw_js_1 = require("../runtime/aeskw.js");
 const ECDH = require("../runtime/ecdhes.js");
 const pbes2kw_js_1 = require("../runtime/pbes2kw.js");
@@ -10,6 +10,7 @@ const errors_js_1 = require("../util/errors.js");
 const export_js_1 = require("../key/export.js");
 const check_key_type_js_1 = require("./check_key_type.js");
 const aesgcmkw_js_1 = require("./aesgcmkw.js");
+
 async function encryptKeyManagement(alg, enc, key, providedCek, providedParameters = {}) {
     let encryptedKey;
     let parameters;
@@ -27,12 +28,12 @@ async function encryptKeyManagement(alg, enc, key, providedCek, providedParamete
             if (!ECDH.ecdhAllowed(key)) {
                 throw new errors_js_1.JOSENotSupported('ECDH-ES with the provided key is not allowed or not supported by your javascript runtime');
             }
-            const { apu, apv } = providedParameters;
-            let { epk: ephemeralKey } = providedParameters;
+            const {apu, apv} = providedParameters;
+            let {epk: ephemeralKey} = providedParameters;
             ephemeralKey || (ephemeralKey = await ECDH.generateEpk(key));
-            const { x, y, crv, kty } = await (0, export_js_1.exportJWK)(ephemeralKey);
+            const {x, y, crv, kty} = await (0, export_js_1.exportJWK)(ephemeralKey);
             const sharedSecret = await ECDH.deriveKey(key, ephemeralKey, alg === 'ECDH-ES' ? enc : alg, parseInt(alg.substr(-5, 3), 10) || (0, cek_js_1.bitLength)(enc), apu, apv);
-            parameters = { epk: { x, y, crv, kty } };
+            parameters = {epk: {x, y, crv, kty}};
             if (apu)
                 parameters.apu = (0, base64url_js_1.encode)(apu);
             if (apv)
@@ -59,8 +60,8 @@ async function encryptKeyManagement(alg, enc, key, providedCek, providedParamete
         case 'PBES2-HS384+A192KW':
         case 'PBES2-HS512+A256KW': {
             cek = providedCek || (0, cek_js_1.default)(enc);
-            const { p2c, p2s } = providedParameters;
-            ({ encryptedKey, ...parameters } = await (0, pbes2kw_js_1.encrypt)(alg, key, cek, p2c, p2s));
+            const {p2c, p2s} = providedParameters;
+            ({encryptedKey, ...parameters} = await (0, pbes2kw_js_1.encrypt)(alg, key, cek, p2c, p2s));
             break;
         }
         case 'A128KW':
@@ -74,14 +75,15 @@ async function encryptKeyManagement(alg, enc, key, providedCek, providedParamete
         case 'A192GCMKW':
         case 'A256GCMKW': {
             cek = providedCek || (0, cek_js_1.default)(enc);
-            const { iv } = providedParameters;
-            ({ encryptedKey, ...parameters } = await (0, aesgcmkw_js_1.wrap)(alg, key, cek, iv));
+            const {iv} = providedParameters;
+            ({encryptedKey, ...parameters} = await (0, aesgcmkw_js_1.wrap)(alg, key, cek, iv));
             break;
         }
         default: {
             throw new errors_js_1.JOSENotSupported('Invalid or unsupported "alg" (JWE Algorithm) header value');
         }
     }
-    return { cek, encryptedKey, parameters };
+    return {cek, encryptedKey, parameters};
 }
+
 exports.default = encryptKeyManagement;

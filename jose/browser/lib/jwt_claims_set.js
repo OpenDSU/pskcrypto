@@ -13,7 +13,7 @@ const checkAudiencePresence = (audPayload, audOption) => {
     return false;
 };
 module.exports = (protectedHeader, encodedPayload, options = {}) => {
-    const { typ } = options;
+    const {typ} = options;
     if (typ &&
         (typeof protectedHeader.typ !== 'string' ||
             normalizeTyp(protectedHeader.typ) !== normalizeTyp(typ))) {
@@ -22,21 +22,20 @@ module.exports = (protectedHeader, encodedPayload, options = {}) => {
     let payload;
     try {
         payload = JSON.parse(encodedPayload.toString());
-    }
-    catch (_a) {
+    } catch (_a) {
     }
     if (!isObject(payload)) {
         throw new JWTInvalid('JWT Claims Set must be a top-level JSON object');
     }
-    const { issuer } = options;
+    const {issuer} = options;
     if (issuer && !(Array.isArray(issuer) ? issuer : [issuer]).includes(payload.iss)) {
         throw new JWTClaimValidationFailed('unexpected "iss" claim value', 'iss', 'check_failed');
     }
-    const { subject } = options;
+    const {subject} = options;
     if (subject && payload.sub !== subject) {
         throw new JWTClaimValidationFailed('unexpected "sub" claim value', 'sub', 'check_failed');
     }
-    const { audience } = options;
+    const {audience} = options;
     if (audience &&
         !checkAudiencePresence(payload.aud, typeof audience === 'string' ? [audience] : audience)) {
         throw new JWTClaimValidationFailed('unexpected "aud" claim value', 'aud', 'check_failed');
@@ -55,7 +54,7 @@ module.exports = (protectedHeader, encodedPayload, options = {}) => {
         default:
             throw new TypeError('Invalid clockTolerance option type');
     }
-    const { currentDate } = options;
+    const {currentDate} = options;
     const now = epoch(currentDate || new Date());
     if (payload.iat !== undefined || options.maxTokenAge) {
         if (typeof payload.iat !== 'number') {

@@ -1,8 +1,7 @@
-/*global exports*/
-var SignStream = require('./sign-stream');
-var VerifyStream = require('./verify-stream');
+const SignStream = require('./sign-stream');
+const VerifyStream = require('./verify-stream');
 
-var ALGORITHMS = [
+const ALGORITHMS = [
     'HS256', 'HS384', 'HS512',
     'RS256', 'RS384', 'RS512',
     'PS256', 'PS384', 'PS512',

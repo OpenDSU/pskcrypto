@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 const errors_js_1 = require("../util/errors.js");
 const iv_js_1 = require("./iv.js");
 const checkIvLength = (enc, iv) => {

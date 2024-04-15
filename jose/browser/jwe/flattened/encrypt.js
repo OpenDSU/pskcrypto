@@ -7,6 +7,7 @@ const {JOSENotSupported, JWEInvalid} = require('../../util/errors.js');
 const isDisjoint = require('../../lib/is_disjoint.js');
 const {concat} = require('../../lib/buffer_utils.js');
 const validateCrit = require('../../lib/validate_crit.js');
+
 class FlattenedEncrypt {
     constructor(plaintext) {
         if (!(plaintext instanceof Uint8Array)) {
@@ -14,6 +15,7 @@ class FlattenedEncrypt {
         }
         this._plaintext = plaintext;
     }
+
     setKeyManagementParameters(parameters) {
         if (this._keyManagementParameters) {
             throw new TypeError('setKeyManagementParameters can only be called once');
@@ -21,6 +23,7 @@ class FlattenedEncrypt {
         this._keyManagementParameters = parameters;
         return this;
     }
+
     setProtectedHeader(protectedHeader) {
         if (this._protectedHeader) {
             throw new TypeError('setProtectedHeader can only be called once');
@@ -28,6 +31,7 @@ class FlattenedEncrypt {
         this._protectedHeader = protectedHeader;
         return this;
     }
+
     setSharedUnprotectedHeader(sharedUnprotectedHeader) {
         if (this._sharedUnprotectedHeader) {
             throw new TypeError('setSharedUnprotectedHeader can only be called once');
@@ -35,6 +39,7 @@ class FlattenedEncrypt {
         this._sharedUnprotectedHeader = sharedUnprotectedHeader;
         return this;
     }
+
     setUnprotectedHeader(unprotectedHeader) {
         if (this._unprotectedHeader) {
             throw new TypeError('setUnprotectedHeader can only be called once');
@@ -42,10 +47,12 @@ class FlattenedEncrypt {
         this._unprotectedHeader = unprotectedHeader;
         return this;
     }
+
     setAdditionalAuthenticatedData(aad) {
         this._aad = aad;
         return this;
     }
+
     setContentEncryptionKey(cek) {
         if (this._cek) {
             throw new TypeError('setContentEncryptionKey can only be called once');
@@ -53,6 +60,7 @@ class FlattenedEncrypt {
         this._cek = cek;
         return this;
     }
+
     setInitializationVector(iv) {
         if (this._iv) {
             throw new TypeError('setInitializationVector can only be called once');
@@ -60,6 +68,7 @@ class FlattenedEncrypt {
         this._iv = iv;
         return this;
     }
+
     async encrypt(key, options) {
         if (!this._protectedHeader && !this._unprotectedHeader && !this._sharedUnprotectedHeader) {
             throw new JWEInvalid('either setProtectedHeader, setUnprotectedHeader, or sharedUnprotectedHeader must be called before #encrypt()');
@@ -81,7 +90,7 @@ class FlattenedEncrypt {
                 throw new JOSENotSupported('Unsupported JWE "zip" (Compression Algorithm) Header Parameter value');
             }
         }
-        const { alg, enc } = joseHeader;
+        const {alg, enc} = joseHeader;
         if (typeof alg !== 'string' || !alg) {
             throw new JWEInvalid('JWE "alg" (Algorithm) Header Parameter missing or invalid');
         }
@@ -93,8 +102,7 @@ class FlattenedEncrypt {
             if (this._cek) {
                 throw new TypeError('setContentEncryptionKey cannot be called when using Direct Encryption');
             }
-        }
-        else if (alg === 'ECDH-ES') {
+        } else if (alg === 'ECDH-ES') {
             if (this._cek) {
                 throw new TypeError('setContentEncryptionKey cannot be called when using Direct Key Agreement');
             }
@@ -102,13 +110,16 @@ class FlattenedEncrypt {
         let cek;
         {
             let parameters;
-            ({ cek, encryptedKey, parameters } = await encryptKeyManagement(alg, enc, key, this._cek, this._keyManagementParameters));
+            ({
+                cek,
+                encryptedKey,
+                parameters
+            } = await encryptKeyManagement(alg, enc, key, this._cek, this._keyManagementParameters));
             if (parameters) {
                 if (!this._protectedHeader) {
                     this.setProtectedHeader(parameters);
-                }
-                else {
-                    this._protectedHeader = { ...this._protectedHeader, ...parameters };
+                } else {
+                    this._protectedHeader = {...this._protectedHeader, ...parameters};
                 }
             }
         }
@@ -118,26 +129,23 @@ class FlattenedEncrypt {
         let aadMember;
         if (this._protectedHeader) {
             protectedHeader = $$.Buffer.from(base64url(JSON.stringify(this._protectedHeader)));
-        }
-        else {
+        } else {
             protectedHeader = $$.Buffer.from('');
         }
         if (this._aad) {
             aadMember = base64url(this._aad);
             additionalData = concat(protectedHeader, $$.Buffer.from('.'), $$.Buffer.from(aadMember));
-        }
-        else {
+        } else {
             additionalData = protectedHeader;
         }
         let ciphertext;
         let tag;
         if (joseHeader.zip === 'DEF') {
             const deflated = await ((options === null || options === void 0 ? void 0 : options.deflateRaw) || deflate)(this._plaintext);
-            ({ ciphertext, tag } = await encrypt(enc, deflated, cek, this._iv, additionalData));
-        }
-        else {
-            
-            ({ ciphertext, tag } = await encrypt(enc, this._plaintext, cek, this._iv, additionalData));
+            ({ciphertext, tag} = await encrypt(enc, deflated, cek, this._iv, additionalData));
+        } else {
+
+            ({ciphertext, tag} = await encrypt(enc, this._plaintext, cek, this._iv, additionalData));
         }
         const jwe = {
             ciphertext: base64url(ciphertext),

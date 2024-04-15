@@ -1,6 +1,6 @@
-var JsonWebTokenError = require('./JsonWebTokenError');
+let JsonWebTokenError = require('./JsonWebTokenError');
 
-var NotBeforeError = function (message, date) {
+let NotBeforeError = function (message, date) {
     JsonWebTokenError.call(this, message);
     this.name = 'NotBeforeError';
     this.date = date;

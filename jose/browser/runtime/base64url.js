@@ -15,8 +15,7 @@ const decode = (input) => {
     encoded = encoded.replace(/-/g, '+').replace(/_/g, '/').replace(/\s/g, '');
     try {
         return decodeBase64(encoded);
-    }
-    catch (_a) {
+    } catch (_a) {
         throw new TypeError('The input to be decoded is not correctly encoded.');
     }
 };

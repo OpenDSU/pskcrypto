@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.deflate = exports.inflate = void 0;
 const util_1 = require("util");
 const zlib_1 = require("zlib");

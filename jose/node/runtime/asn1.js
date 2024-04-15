@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.fromSPKI = exports.fromPKCS8 = exports.toPKCS8 = exports.toSPKI = void 0;
 const crypto_1 = require("crypto");
 const buffer_1 = require("buffer");
@@ -13,17 +13,15 @@ const genericExport = (keyType, keyFormat, key) => {
             throw new TypeError('CryptoKey is not extractable');
         }
         keyObject = crypto_1.KeyObject.from(key);
-    }
-    else if ((0, is_key_object_js_1.default)(key)) {
+    } else if ((0, is_key_object_js_1.default)(key)) {
         keyObject = key;
-    }
-    else {
+    } else {
         throw new TypeError((0, invalid_key_input_js_1.default)(key, 'KeyObject', 'CryptoKey'));
     }
     if (keyObject.type !== keyType) {
         throw new TypeError(`key is not a ${keyType} key`);
     }
-    return keyObject.export({ format: 'pem', type: keyFormat });
+    return keyObject.export({format: 'pem', type: keyFormat});
 };
 const toSPKI = (key) => {
     return genericExport('public', 'spki', key);

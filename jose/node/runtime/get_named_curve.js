@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.setCurve = exports.weakMap = void 0;
 const buffer_1 = require("buffer");
 const crypto_1 = require("crypto");
@@ -31,11 +31,9 @@ const getNamedCurve = (kee, raw) => {
     let key;
     if ((0, webcrypto_js_1.isCryptoKey)(kee)) {
         key = crypto_1.KeyObject.from(kee);
-    }
-    else if ((0, is_key_object_js_1.default)(kee)) {
+    } else if ((0, is_key_object_js_1.default)(kee)) {
         key = kee;
-    }
-    else {
+    } else {
         throw new TypeError((0, invalid_key_input_js_1.default)(kee, 'KeyObject', 'CryptoKey'));
     }
     if (key.type === 'secret') {
@@ -55,25 +53,20 @@ const getNamedCurve = (kee, raw) => {
             let namedCurve = (_a = key.asymmetricKeyDetails) === null || _a === void 0 ? void 0 : _a.namedCurve;
             if (!namedCurve && key.type === 'private') {
                 namedCurve = getNamedCurve((0, crypto_1.createPublicKey)(key), true);
-            }
-            else if (!namedCurve) {
-                const buf = key.export({ format: 'der', type: 'spki' });
+            } else if (!namedCurve) {
+                const buf = key.export({format: 'der', type: 'spki'});
                 const i = buf[1] < 128 ? 14 : 15;
                 const len = buf[i];
                 const curveOid = buf.slice(i + 1, i + 1 + len);
                 if (curveOid.equals(p256)) {
                     namedCurve = 'prime256v1';
-                }
-                else if (curveOid.equals(p384)) {
+                } else if (curveOid.equals(p384)) {
                     namedCurve = 'secp384r1';
-                }
-                else if (curveOid.equals(p521)) {
+                } else if (curveOid.equals(p521)) {
                     namedCurve = 'secp521r1';
-                }
-                else if (curveOid.equals(secp256k1)) {
+                } else if (curveOid.equals(secp256k1)) {
                     namedCurve = 'secp256k1';
-                }
-                else {
+                } else {
                     throw new errors_js_1.JOSENotSupported('Unsupported key curve for this operation');
                 }
             }
@@ -87,8 +80,10 @@ const getNamedCurve = (kee, raw) => {
             throw new TypeError('Invalid asymmetric key type for this operation');
     }
 };
+
 function setCurve(keyObject, curve) {
     exports.weakMap.set(keyObject, curve);
 }
+
 exports.setCurve = setCurve;
 exports.default = getNamedCurve;

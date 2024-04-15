@@ -45,7 +45,7 @@ module.exports.encrypt = function (senderECSigningKeyPair, receiverECDHPublicKey
     const senderAuthMsgEnvelopeSerialized = senderMessageWrapAndSerialization(senderECSigningKeyPair.publicKey, message, signature, options)
 
     const kdfInput = common.computeKDFInput(ephemeralPublicKey, sharedSecret)
-    const { symmetricEncryptionKey, macKey } = common.computeSymmetricEncAndMACKeys(kdfInput, options)
+    const {symmetricEncryptionKey, macKey} = common.computeSymmetricEncAndMACKeys(kdfInput, options)
 
     const iv = mycrypto.getRandomBytes(options.ivSize)
     const ciphertext = mycrypto.symmetricEncrypt(symmetricEncryptionKey, senderAuthMsgEnvelopeSerialized, iv, options)

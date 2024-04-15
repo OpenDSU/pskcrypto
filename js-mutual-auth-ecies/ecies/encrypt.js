@@ -27,7 +27,7 @@ module.exports.encrypt = function (receiverECDHPublicKey, message, options) {
     const sharedSecret = ephemeralKeyAgreement.generateSharedSecretForPublicKey(receiverECDHPublicKey)
 
     const kdfInput = common.computeKDFInput(ephemeralPublicKey, sharedSecret)
-    const { symmetricEncryptionKey, macKey } = common.computeSymmetricEncAndMACKeys(kdfInput, options)
+    const {symmetricEncryptionKey, macKey} = common.computeSymmetricEncAndMACKeys(kdfInput, options)
 
     const iv = mycrypto.getRandomBytes(options.ivSize)
     const ciphertext = mycrypto.symmetricEncrypt(symmetricEncryptionKey, message, iv, options)

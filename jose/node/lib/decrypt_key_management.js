@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 const aeskw_js_1 = require("../runtime/aeskw.js");
 const ECDH = require("../runtime/ecdhes.js");
 const pbes2kw_js_1 = require("../runtime/pbes2kw.js");
@@ -11,6 +11,7 @@ const import_js_1 = require("../key/import.js");
 const check_key_type_js_1 = require("./check_key_type.js");
 const is_object_js_1 = require("./is_object.js");
 const aesgcmkw_js_1 = require("./aesgcmkw.js");
+
 async function decryptKeyManagement(alg, key, encryptedKey, joseHeader) {
     (0, check_key_type_js_1.default)(alg, key, 'decrypt');
     switch (alg) {
@@ -94,4 +95,5 @@ async function decryptKeyManagement(alg, key, encryptedKey, joseHeader) {
         }
     }
 }
+
 exports.default = decryptKeyManagement;

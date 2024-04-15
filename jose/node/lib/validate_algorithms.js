@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 const validateAlgorithms = (option, algorithms) => {
     if (algorithms !== undefined &&
         (!Array.isArray(algorithms) || algorithms.some((s) => typeof s !== 'string'))) {

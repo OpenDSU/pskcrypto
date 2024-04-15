@@ -2,6 +2,7 @@ const {isCloudflareWorkers, isNodeJs} = require('./global.js');
 const webcrypto = require('./webcrypto.js');
 const {JOSENotSupported} = require('../util/errors.js');
 const crypto = require("crypto");
+
 async function generateSecret(alg, options) {
     var _a;
     let length;

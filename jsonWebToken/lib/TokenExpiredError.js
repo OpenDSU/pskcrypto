@@ -1,6 +1,6 @@
-var JsonWebTokenError = require('./JsonWebTokenError');
+let JsonWebTokenError = require('./JsonWebTokenError');
 
-var TokenExpiredError = function (message, expiredAt) {
+let TokenExpiredError = function (message, expiredAt) {
     JsonWebTokenError.call(this, message);
     this.name = 'TokenExpiredError';
     this.expiredAt = expiredAt;

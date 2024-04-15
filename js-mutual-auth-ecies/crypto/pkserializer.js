@@ -3,7 +3,7 @@ const config = require('../config');
 function PublicKeySerializer() {
     this.serializeECDHPublicKey = (ecdhPublicKey, options) => {
         options = options || {};
-        const defaultOpts =  config;
+        const defaultOpts = config;
         Object.assign(defaultOpts, options);
         options = defaultOpts;
 
@@ -19,7 +19,11 @@ function PublicKeySerializer() {
 
         let encodingFormat = options.encodingFormat;
         const ecKeyGenerator = require("../../lib/ECKeyGenerator").createECKeyGenerator();
-        const derPublicKey = ecKeyGenerator.convertPublicKey(ecSigVerPublicKey, {originalFormat: "pem", outputFormat: "der", encodingFormat});
+        const derPublicKey = ecKeyGenerator.convertPublicKey(ecSigVerPublicKey, {
+            originalFormat: "pem",
+            outputFormat: "der",
+            encodingFormat
+        });
         return derPublicKey.toString(encodingFormat)
     }
 }

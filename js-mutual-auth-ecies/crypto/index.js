@@ -7,7 +7,7 @@ const sig = require('./digitalsig')
 const crypto = require('crypto')
 
 module.exports = {
-    timingSafeEqual: function(a, b){
+    timingSafeEqual: function (a, b) {
         const hashA = crypto.createHash("sha256");
         const digestA = hashA.update(a).digest("hex");
 

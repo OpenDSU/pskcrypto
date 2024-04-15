@@ -10,7 +10,7 @@ const generateCek = require('../../lib/cek.js');
 const validateCrit = require('../../lib/validate_crit.js');
 const validateAlgorithms = require('../../lib/validate_algorithms.js');
 module.exports.flattenedDecrypt = async function flattenedDecrypt(jwe, key, options) {
-    var _a;
+    let _a;
     if (!isObject(jwe)) {
         throw new JWEInvalid('Flattened JWE must be an object');
     }
@@ -46,8 +46,7 @@ module.exports.flattenedDecrypt = async function flattenedDecrypt(jwe, key, opti
         const protectedHeader = base64url(jwe.protected);
         try {
             parsedProt = JSON.parse(protectedHeader.toString());
-        }
-        catch (_b) {
+        } catch (_b) {
             throw new JWEInvalid('JWE Protected Header is invalid');
         }
     }
@@ -68,7 +67,7 @@ module.exports.flattenedDecrypt = async function flattenedDecrypt(jwe, key, opti
             throw new JOSENotSupported('Unsupported JWE "zip" (Compression Algorithm) Header Parameter value');
         }
     }
-    const { alg, enc } = joseHeader;
+    const {alg, enc} = joseHeader;
     if (typeof alg !== 'string' || !alg) {
         throw new JWEInvalid('missing JWE Algorithm (alg) in JWE Header');
     }
@@ -96,8 +95,7 @@ module.exports.flattenedDecrypt = async function flattenedDecrypt(jwe, key, opti
     let cek;
     try {
         cek = await decryptKeyManagement(alg, key, encryptedKey, joseHeader);
-    }
-    catch (err) {
+    } catch (err) {
         if (err instanceof TypeError) {
             throw err;
         }
@@ -109,15 +107,14 @@ module.exports.flattenedDecrypt = async function flattenedDecrypt(jwe, key, opti
     let additionalData;
     if (jwe.aad !== undefined) {
         additionalData = concat(protectedHeader, $$.Buffer.from('.'), $$.Buffer.from(jwe.aad));
-    }
-    else {
+    } else {
         additionalData = protectedHeader;
     }
     let plaintext = await decrypt(enc, cek, base64url(jwe.ciphertext), iv, tag, additionalData);
     if (joseHeader.zip === 'DEF') {
         plaintext = await ((options === null || options === void 0 ? void 0 : options.inflateRaw) || inflate)(plaintext);
     }
-    const result = { plaintext };
+    const result = {plaintext};
     if (jwe.protected !== undefined) {
         result.protectedHeader = parsedProt;
     }
@@ -131,7 +128,7 @@ module.exports.flattenedDecrypt = async function flattenedDecrypt(jwe, key, opti
         result.unprotectedHeader = jwe.header;
     }
     if (resolvedKey) {
-        return { ...result, key };
+        return {...result, key};
     }
     return result;
 }

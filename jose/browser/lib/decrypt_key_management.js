@@ -9,6 +9,7 @@ const {importJWK} = require('../key/import.js');
 const checkKeyType = require('./check_key_type.js');
 const isObject = require('./is_object.js');
 const {unwrap: aesGcmKw} = require('./aesgcmkw.js');
+
 async function decryptKeyManagement(alg, key, encryptedKey, joseHeader) {
     checkKeyType(alg, key, 'decrypt');
     switch (alg) {
@@ -92,4 +93,5 @@ async function decryptKeyManagement(alg, key, encryptedKey, joseHeader) {
         }
     }
 }
+
 module.exports = decryptKeyManagement;

@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 const crypto_1 = require("crypto");
 const base64url_js_1 = require("./base64url.js");
 const asn1_sequence_decoder_js_1 = require("./asn1_sequence_decoder.js");
@@ -20,21 +20,18 @@ const keyToJWK = (key) => {
             throw new TypeError('CryptoKey is not extractable');
         }
         keyObject = crypto_1.KeyObject.from(key);
-    }
-    else if ((0, is_key_object_js_1.default)(key)) {
+    } else if ((0, is_key_object_js_1.default)(key)) {
         keyObject = key;
-    }
-    else if (key instanceof Uint8Array) {
+    } else if (key instanceof Uint8Array) {
         return {
             kty: 'oct',
             k: (0, base64url_js_1.encode)(key),
         };
-    }
-    else {
+    } else {
         throw new TypeError((0, invalid_key_input_js_1.default)(key, 'KeyObject', 'CryptoKey', 'Uint8Array'));
     }
     if (jwkExportSupported) {
-        return keyObject.export({ format: 'jwk' });
+        return keyObject.export({format: 'jwk'});
     }
     switch (keyObject.type) {
         case 'secret':
@@ -46,7 +43,7 @@ const keyToJWK = (key) => {
         case 'public': {
             switch (keyObject.asymmetricKeyType) {
                 case 'rsa': {
-                    const der = keyObject.export({ format: 'der', type: 'pkcs1' });
+                    const der = keyObject.export({format: 'der', type: 'pkcs1'});
                     const dec = new asn1_sequence_decoder_js_1.default(der);
                     if (keyObject.type === 'private') {
                         dec.unsignedInteger();
@@ -65,7 +62,7 @@ const keyToJWK = (key) => {
                         };
                     }
                     dec.end();
-                    return { kty: 'RSA', n, e, ...jwk };
+                    return {kty: 'RSA', n, e, ...jwk};
                 }
                 case 'ec': {
                     const crv = (0, get_named_curve_js_1.default)(keyObject);
@@ -97,7 +94,7 @@ const keyToJWK = (key) => {
                             throw new errors_js_1.JOSENotSupported('Unsupported curve');
                     }
                     if (keyObject.type === 'public') {
-                        const der = keyObject.export({ type: 'spki', format: 'der' });
+                        const der = keyObject.export({type: 'spki', format: 'der'});
                         return {
                             kty: 'EC',
                             crv,
@@ -105,7 +102,7 @@ const keyToJWK = (key) => {
                             y: (0, base64url_js_1.encode)(der.subarray(-len / 2)),
                         };
                     }
-                    const der = keyObject.export({ type: 'pkcs8', format: 'der' });
+                    const der = keyObject.export({type: 'pkcs8', format: 'der'});
                     if (der.length < 100) {
                         offset += correction;
                     }
@@ -118,14 +115,14 @@ const keyToJWK = (key) => {
                 case 'x25519': {
                     const crv = (0, get_named_curve_js_1.default)(keyObject);
                     if (keyObject.type === 'public') {
-                        const der = keyObject.export({ type: 'spki', format: 'der' });
+                        const der = keyObject.export({type: 'spki', format: 'der'});
                         return {
                             kty: 'OKP',
                             crv,
                             x: (0, base64url_js_1.encode)(der.subarray(-32)),
                         };
                     }
-                    const der = keyObject.export({ type: 'pkcs8', format: 'der' });
+                    const der = keyObject.export({type: 'pkcs8', format: 'der'});
                     return {
                         ...keyToJWK((0, crypto_1.createPublicKey)(keyObject)),
                         d: (0, base64url_js_1.encode)(der.subarray(-32)),
@@ -135,14 +132,14 @@ const keyToJWK = (key) => {
                 case 'x448': {
                     const crv = (0, get_named_curve_js_1.default)(keyObject);
                     if (keyObject.type === 'public') {
-                        const der = keyObject.export({ type: 'spki', format: 'der' });
+                        const der = keyObject.export({type: 'spki', format: 'der'});
                         return {
                             kty: 'OKP',
                             crv,
                             x: (0, base64url_js_1.encode)(der.subarray(crv === 'Ed448' ? -57 : -56)),
                         };
                     }
-                    const der = keyObject.export({ type: 'pkcs8', format: 'der' });
+                    const der = keyObject.export({type: 'pkcs8', format: 'der'});
                     return {
                         ...keyToJWK((0, crypto_1.createPublicKey)(keyObject)),
                         d: (0, base64url_js_1.encode)(der.subarray(crv === 'Ed448' ? -57 : -56)),

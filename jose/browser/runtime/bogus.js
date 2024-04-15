@@ -1,5 +1,5 @@
 const bogusWebCrypto = [
-    { hash: 'SHA-256', name: 'HMAC' },
+    {hash: 'SHA-256', name: 'HMAC'},
     true,
     ['sign'],
 ];

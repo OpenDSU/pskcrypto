@@ -22,7 +22,11 @@ function PublicKeyDeserializer() {
         let encodingFormat = options.encodingFormat;
         // let publicKey = $$.Buffer.from(ecSigVerPublicKeySerialized, encodingFormat);
         const ecKeyGenerator = require("../../lib/ECKeyGenerator").createECKeyGenerator();
-        const publicKey = ecKeyGenerator.convertPublicKey(ecSigVerPublicKeySerialized, {originalFormat: "der", outputFormat: "pem", encodingFormat});
+        const publicKey = ecKeyGenerator.convertPublicKey(ecSigVerPublicKeySerialized, {
+            originalFormat: "der",
+            outputFormat: "pem",
+            encodingFormat
+        });
         return publicKey;
     }
 

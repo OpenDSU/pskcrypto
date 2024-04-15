@@ -36,7 +36,7 @@ function isECIESEnvelopeForInputECDHPublicKey(eciesEnvelope, ecdhPublicKey, opti
     return mycrypto.timingSafeEqual(envelopeECDHPublicKey, ecdhPublicKeyBuffer);
 }
 
-module.exports.receiverMultiRecipientECIESDecrypt = function(receiverECDHKeyPair, multiRecipientECIESBuffer, options) {
+module.exports.receiverMultiRecipientECIESDecrypt = function (receiverECDHKeyPair, multiRecipientECIESBuffer, options) {
     options = options || {};
     const defaultOpts = config;
     Object.assign(defaultOpts, options);
@@ -68,7 +68,7 @@ module.exports.parseKeyBuffer = function (keyBuffer, options) {
     Object.assign(defaultOpts, options);
 
     options = defaultOpts;
-    if (keyBuffer.length !== (options.symmetricCipherKeySize + (2*options.macKeySize))) {
+    if (keyBuffer.length !== (options.symmetricCipherKeySize + (2 * options.macKeySize))) {
         throw new Error("Invalid length of decrypted key buffer")
     }
     const symmetricCipherKey = keyBuffer.slice(0, options.symmetricCipherKeySize)

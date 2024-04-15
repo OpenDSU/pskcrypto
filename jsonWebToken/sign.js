@@ -1,14 +1,14 @@
-var timespan = require('./lib/timespan');
-var jws = require('./jws');
+let timespan = require('./lib/timespan');
+let jws = require('./jws');
 
-var options_to_payload = {
+let options_to_payload = {
     'audience': 'aud',
     'issuer': 'iss',
     'subject': 'sub',
     'jwtid': 'jti'
 };
 
-var options_for_objects = [
+let options_for_objects = [
     'expiresIn',
     'notBefore',
     'noTimestamp',
@@ -26,10 +26,10 @@ module.exports = function (payload, secretOrPrivateKey, options, callback) {
         options = options || {};
     }
 
-    var isObjectPayload = typeof payload === 'object' &&
+    let isObjectPayload = typeof payload === 'object' &&
         !Buffer.isBuffer(payload);
 
-    var header = Object.assign({
+    let header = Object.assign({
         alg: options.algorithm || 'HS256',
         typ: isObjectPayload ? 'JWT' : undefined,
         kid: options.keyid
@@ -50,15 +50,15 @@ module.exports = function (payload, secretOrPrivateKey, options, callback) {
         return failure(new Error('payload is required'));
     } else if (isObjectPayload) {
         if (!options.mutatePayload) {
-            payload = Object.assign({},payload);
+            payload = Object.assign({}, payload);
         }
     } else {
-        var invalid_options = options_for_objects.filter(function (opt) {
+        let invalid_options = options_for_objects.filter(function (opt) {
             return typeof options[opt] !== 'undefined';
         });
 
         if (invalid_options.length > 0) {
-            return failure(new Error('invalid ' + invalid_options.join(',') + ' option for ' + (typeof payload ) + ' payload'));
+            return failure(new Error('invalid ' + invalid_options.join(',') + ' option for ' + (typeof payload) + ' payload'));
         }
     }
 
@@ -70,7 +70,7 @@ module.exports = function (payload, secretOrPrivateKey, options, callback) {
         return failure(new Error('Bad "options.notBefore" option the payload already has an "nbf" property.'));
     }
 
-    var timestamp = payload.iat || Math.floor(Date.now() / 1000);
+    let timestamp = payload.iat || Math.floor(Date.now() / 1000);
 
     if (options.noTimestamp) {
         delete payload.iat;
@@ -81,8 +81,7 @@ module.exports = function (payload, secretOrPrivateKey, options, callback) {
     if (typeof options.notBefore !== 'undefined') {
         try {
             payload.nbf = timespan(options.notBefore, timestamp);
-        }
-        catch (err) {
+        } catch (err) {
             return failure(err);
         }
         if (typeof payload.nbf === 'undefined') {
@@ -93,8 +92,7 @@ module.exports = function (payload, secretOrPrivateKey, options, callback) {
     if (typeof options.expiresIn !== 'undefined' && typeof payload === 'object') {
         try {
             payload.exp = timespan(options.expiresIn, timestamp);
-        }
-        catch (err) {
+        } catch (err) {
             return failure(err);
         }
         if (typeof payload.exp === 'undefined') {
@@ -103,7 +101,7 @@ module.exports = function (payload, secretOrPrivateKey, options, callback) {
     }
 
     Object.keys(options_to_payload).forEach(function (key) {
-        var claim = options_to_payload[key];
+        let claim = options_to_payload[key];
         if (typeof options[key] !== 'undefined') {
             if (typeof payload[claim] !== 'undefined') {
                 return failure(new Error('Bad "options.' + key + '" option. The payload already has an "' + claim + '" property.'));
@@ -112,7 +110,7 @@ module.exports = function (payload, secretOrPrivateKey, options, callback) {
         }
     });
 
-    var encoding = options.encoding || 'utf8';
+    let encoding = options.encoding || 'utf8';
 
     if (typeof callback === 'function') {
         jws.createSign({

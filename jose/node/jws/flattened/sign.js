@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.FlattenedSign = void 0;
 const base64url_js_1 = require("../../runtime/base64url.js");
 const sign_js_1 = require("../../runtime/sign.js");
@@ -8,6 +8,7 @@ const errors_js_1 = require("../../util/errors.js");
 const buffer_utils_js_1 = require("../../lib/buffer_utils.js");
 const check_key_type_js_1 = require("../../lib/check_key_type.js");
 const validate_crit_js_1 = require("../../lib/validate_crit.js");
+
 class FlattenedSign {
     constructor(payload) {
         if (!(payload instanceof Uint8Array)) {
@@ -15,6 +16,7 @@ class FlattenedSign {
         }
         this._payload = payload;
     }
+
     setProtectedHeader(protectedHeader) {
         if (this._protectedHeader) {
             throw new TypeError('setProtectedHeader can only be called once');
@@ -22,6 +24,7 @@ class FlattenedSign {
         this._protectedHeader = protectedHeader;
         return this;
     }
+
     setUnprotectedHeader(unprotectedHeader) {
         if (this._unprotectedHeader) {
             throw new TypeError('setUnprotectedHeader can only be called once');
@@ -29,6 +32,7 @@ class FlattenedSign {
         this._unprotectedHeader = unprotectedHeader;
         return this;
     }
+
     async sign(key, options) {
         if (!this._protectedHeader && !this._unprotectedHeader) {
             throw new errors_js_1.JWSInvalid('either setProtectedHeader or setUnprotectedHeader must be called before #sign()');
@@ -48,7 +52,7 @@ class FlattenedSign {
                 throw new errors_js_1.JWSInvalid('The "b64" (base64url-encode payload) Header Parameter must be a boolean');
             }
         }
-        const { alg } = joseHeader;
+        const {alg} = joseHeader;
         if (typeof alg !== 'string' || !alg) {
             throw new errors_js_1.JWSInvalid('JWS "alg" (Algorithm) Header Parameter missing or invalid');
         }
@@ -60,8 +64,7 @@ class FlattenedSign {
         let protectedHeader;
         if (this._protectedHeader) {
             protectedHeader = buffer_utils_js_1.encoder.encode((0, base64url_js_1.encode)(JSON.stringify(this._protectedHeader)));
-        }
-        else {
+        } else {
             protectedHeader = buffer_utils_js_1.encoder.encode('');
         }
         const data = (0, buffer_utils_js_1.concat)(protectedHeader, buffer_utils_js_1.encoder.encode('.'), payload);
@@ -82,4 +85,5 @@ class FlattenedSign {
         return jws;
     }
 }
+
 exports.FlattenedSign = FlattenedSign;

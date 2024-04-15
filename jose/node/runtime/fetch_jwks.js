@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 const http = require("http");
 const https = require("https");
 const events_1 = require("events");
@@ -17,7 +17,7 @@ const fetchJwks = async (url, timeout, options) => {
         default:
             throw new TypeError('Unsupported URL protocol.');
     }
-    const { agent } = options;
+    const {agent} = options;
     const req = get(url.href, {
         agent,
         timeout,
@@ -36,8 +36,7 @@ const fetchJwks = async (url, timeout, options) => {
     }
     try {
         return JSON.parse(buffer_utils_js_1.decoder.decode((0, buffer_utils_js_1.concat)(...parts)));
-    }
-    catch {
+    } catch {
         throw new errors_js_1.JOSEError('Failed to parse the JSON Web Key Set HTTP response as JSON');
     }
 };

@@ -15,7 +15,7 @@ module.exports.generateKeyBufferParams = function (options) {
     }
 }
 
-module.exports.senderMultiRecipientECIESEncrypt = function(message, ...receiverECDHPublicKeyArray) {
+module.exports.senderMultiRecipientECIESEncrypt = function (message, ...receiverECDHPublicKeyArray) {
     let options;
     const lastArg = receiverECDHPublicKeyArray[receiverECDHPublicKeyArray.length - 1];
     if (typeof lastArg === "object" && !Array.isArray(lastArg) && !$$.Buffer.isBuffer(lastArg) && !(lastArg instanceof Uint8Array)) {

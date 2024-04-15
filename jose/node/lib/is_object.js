@@ -1,8 +1,10 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
+
 function isObjectLike(value) {
     return typeof value === 'object' && value !== null;
 }
+
 function isObject(input) {
     if (!isObjectLike(input) || Object.prototype.toString.call(input) !== '[object Object]') {
         return false;
@@ -16,4 +18,5 @@ function isObject(input) {
     }
     return Object.getPrototypeOf(input) === proto;
 }
+
 exports.default = isObject;

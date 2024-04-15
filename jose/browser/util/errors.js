@@ -1,4 +1,4 @@
- class JOSEError extends Error {
+class JOSEError extends Error {
     constructor(message) {
         var _a;
         super(message);
@@ -12,7 +12,7 @@
     }
 }
 
- class JWTClaimValidationFailed extends JOSEError {
+class JWTClaimValidationFailed extends JOSEError {
     constructor(message, claim = 'unspecified', reason = 'unspecified') {
         super(message);
         this.code = 'ERR_JWT_CLAIM_VALIDATION_FAILED';
@@ -25,7 +25,7 @@
     }
 }
 
- class JWTExpired extends JOSEError {
+class JWTExpired extends JOSEError {
     constructor(message, claim = 'unspecified', reason = 'unspecified') {
         super(message);
         this.code = 'ERR_JWT_EXPIRED';
@@ -38,7 +38,7 @@
     }
 }
 
- class JOSEAlgNotAllowed extends JOSEError {
+class JOSEAlgNotAllowed extends JOSEError {
     constructor() {
         super(...arguments);
         this.code = 'ERR_JOSE_ALG_NOT_ALLOWED';
@@ -49,7 +49,7 @@
     }
 }
 
- class JOSENotSupported extends JOSEError {
+class JOSENotSupported extends JOSEError {
     constructor() {
         super(...arguments);
         this.code = 'ERR_JOSE_NOT_SUPPORTED';
@@ -60,7 +60,7 @@
     }
 }
 
- class JWEDecryptionFailed extends JOSEError {
+class JWEDecryptionFailed extends JOSEError {
     constructor() {
         super(...arguments);
         this.code = 'ERR_JWE_DECRYPTION_FAILED';
@@ -72,7 +72,7 @@
     }
 }
 
- class JWEInvalid extends JOSEError {
+class JWEInvalid extends JOSEError {
     constructor() {
         super(...arguments);
         this.code = 'ERR_JWE_INVALID';
@@ -83,7 +83,7 @@
     }
 }
 
- class JWSInvalid extends JOSEError {
+class JWSInvalid extends JOSEError {
     constructor() {
         super(...arguments);
         this.code = 'ERR_JWS_INVALID';
@@ -94,7 +94,7 @@
     }
 }
 
- class JWTInvalid extends JOSEError {
+class JWTInvalid extends JOSEError {
     constructor() {
         super(...arguments);
         this.code = 'ERR_JWT_INVALID';
@@ -105,7 +105,7 @@
     }
 }
 
- class JWKInvalid extends JOSEError {
+class JWKInvalid extends JOSEError {
     constructor() {
         super(...arguments);
         this.code = 'ERR_JWK_INVALID';
@@ -116,7 +116,7 @@
     }
 }
 
- class JWKSInvalid extends JOSEError {
+class JWKSInvalid extends JOSEError {
     constructor() {
         super(...arguments);
         this.code = 'ERR_JWKS_INVALID';
@@ -127,7 +127,7 @@
     }
 }
 
- class JWKSNoMatchingKey extends JOSEError {
+class JWKSNoMatchingKey extends JOSEError {
     constructor() {
         super(...arguments);
         this.code = 'ERR_JWKS_NO_MATCHING_KEY';
@@ -139,7 +139,7 @@
     }
 }
 
- class JWKSMultipleMatchingKeys extends JOSEError {
+class JWKSMultipleMatchingKeys extends JOSEError {
     constructor() {
         super(...arguments);
         this.code = 'ERR_JWKS_MULTIPLE_MATCHING_KEYS';
@@ -151,7 +151,7 @@
     }
 }
 
- class JWKSTimeout extends JOSEError {
+class JWKSTimeout extends JOSEError {
     constructor() {
         super(...arguments);
         this.code = 'ERR_JWKS_TIMEOUT';
@@ -163,7 +163,7 @@
     }
 }
 
- class JWSSignatureVerificationFailed extends JOSEError {
+class JWSSignatureVerificationFailed extends JOSEError {
     constructor() {
         super(...arguments);
         this.code = 'ERR_JWS_SIGNATURE_VERIFICATION_FAILED';

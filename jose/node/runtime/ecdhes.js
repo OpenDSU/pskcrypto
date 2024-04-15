@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.ecdhAllowed = exports.generateEpk = exports.deriveKey = void 0;
 const crypto_1 = require("crypto");
 const util_1 = require("util");
@@ -17,26 +17,22 @@ const deriveKey = async (publicKee, privateKee, algorithm, keyLength, apu = new 
     if ((0, webcrypto_js_1.isCryptoKey)(publicKee)) {
         (0, crypto_key_js_1.checkEncCryptoKey)(publicKee, 'ECDH-ES');
         publicKey = crypto_1.KeyObject.from(publicKee);
-    }
-    else if ((0, is_key_object_js_1.default)(publicKee)) {
+    } else if ((0, is_key_object_js_1.default)(publicKee)) {
         publicKey = publicKee;
-    }
-    else {
+    } else {
         throw new TypeError((0, invalid_key_input_js_1.default)(publicKee, 'KeyObject', 'CryptoKey'));
     }
     let privateKey;
     if ((0, webcrypto_js_1.isCryptoKey)(privateKee)) {
         (0, crypto_key_js_1.checkEncCryptoKey)(privateKee, 'ECDH-ES', 'deriveBits', 'deriveKey');
         privateKey = crypto_1.KeyObject.from(privateKee);
-    }
-    else if ((0, is_key_object_js_1.default)(privateKee)) {
+    } else if ((0, is_key_object_js_1.default)(privateKee)) {
         privateKey = privateKee;
-    }
-    else {
+    } else {
         throw new TypeError((0, invalid_key_input_js_1.default)(privateKee, 'KeyObject', 'CryptoKey'));
     }
     const value = (0, buffer_utils_js_1.concat)((0, buffer_utils_js_1.lengthAndInput)(buffer_utils_js_1.encoder.encode(algorithm)), (0, buffer_utils_js_1.lengthAndInput)(apu), (0, buffer_utils_js_1.lengthAndInput)(apv), (0, buffer_utils_js_1.uint32be)(keyLength));
-    const sharedSecret = (0, crypto_1.diffieHellman)({ privateKey, publicKey });
+    const sharedSecret = (0, crypto_1.diffieHellman)({privateKey, publicKey});
     return (0, buffer_utils_js_1.concatKdf)(digest_js_1.default, sharedSecret, keyLength, value);
 };
 exports.deriveKey = deriveKey;
@@ -44,11 +40,9 @@ const generateEpk = async (kee) => {
     let key;
     if ((0, webcrypto_js_1.isCryptoKey)(kee)) {
         key = crypto_1.KeyObject.from(kee);
-    }
-    else if ((0, is_key_object_js_1.default)(kee)) {
+    } else if ((0, is_key_object_js_1.default)(kee)) {
         key = kee;
-    }
-    else {
+    } else {
         throw new TypeError((0, invalid_key_input_js_1.default)(kee, 'KeyObject', 'CryptoKey'));
     }
     switch (key.asymmetricKeyType) {
@@ -59,7 +53,7 @@ const generateEpk = async (kee) => {
         }
         case 'ec': {
             const namedCurve = (0, get_named_curve_js_1.default)(key);
-            return (await generateKeyPair('ec', { namedCurve })).privateKey;
+            return (await generateKeyPair('ec', {namedCurve})).privateKey;
         }
         default:
             throw new errors_js_1.JOSENotSupported('Invalid or unsupported EPK');

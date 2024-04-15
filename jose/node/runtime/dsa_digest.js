@@ -1,6 +1,7 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 const errors_js_1 = require("../util/errors.js");
+
 function dsaDigest(alg) {
     switch (alg) {
         case 'PS256':
@@ -22,4 +23,5 @@ function dsaDigest(alg) {
             throw new errors_js_1.JOSENotSupported(`alg ${alg} is not supported either by JOSE or your javascript runtime`);
     }
 }
+
 exports.default = dsaDigest;

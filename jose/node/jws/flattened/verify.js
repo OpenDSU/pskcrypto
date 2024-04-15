@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.flattenedVerify = void 0;
 const base64url_js_1 = require("../../runtime/base64url.js");
 const verify_js_1 = require("../../runtime/verify.js");
@@ -10,8 +10,9 @@ const is_object_js_1 = require("../../lib/is_object.js");
 const check_key_type_js_1 = require("../../lib/check_key_type.js");
 const validate_crit_js_1 = require("../../lib/validate_crit.js");
 const validate_algorithms_js_1 = require("../../lib/validate_algorithms.js");
+
 async function flattenedVerify(jws, key, options) {
-    var _a;
+    let _a;
     if (!(0, is_object_js_1.default)(jws)) {
         throw new errors_js_1.JWSInvalid('Flattened JWS must be an object');
     }
@@ -35,8 +36,7 @@ async function flattenedVerify(jws, key, options) {
         const protectedHeader = (0, base64url_js_1.decode)(jws.protected);
         try {
             parsedProt = JSON.parse(buffer_utils_js_1.decoder.decode(protectedHeader));
-        }
-        catch {
+        } catch {
             throw new errors_js_1.JWSInvalid('JWS Protected Header is invalid');
         }
     }
@@ -55,7 +55,7 @@ async function flattenedVerify(jws, key, options) {
             throw new errors_js_1.JWSInvalid('The "b64" (base64url-encode payload) Header Parameter must be a boolean');
         }
     }
-    const { alg } = joseHeader;
+    const {alg} = joseHeader;
     if (typeof alg !== 'string' || !alg) {
         throw new errors_js_1.JWSInvalid('JWS "alg" (Algorithm) Header Parameter missing or invalid');
     }
@@ -67,8 +67,7 @@ async function flattenedVerify(jws, key, options) {
         if (typeof jws.payload !== 'string') {
             throw new errors_js_1.JWSInvalid('JWS Payload must be a string');
         }
-    }
-    else if (typeof jws.payload !== 'string' && !(jws.payload instanceof Uint8Array)) {
+    } else if (typeof jws.payload !== 'string' && !(jws.payload instanceof Uint8Array)) {
         throw new errors_js_1.JWSInvalid('JWS Payload must be a string or an Uint8Array instance');
     }
     let resolvedKey = false;
@@ -86,14 +85,12 @@ async function flattenedVerify(jws, key, options) {
     let payload;
     if (b64) {
         payload = (0, base64url_js_1.decode)(jws.payload);
-    }
-    else if (typeof jws.payload === 'string') {
+    } else if (typeof jws.payload === 'string') {
         payload = buffer_utils_js_1.encoder.encode(jws.payload);
-    }
-    else {
+    } else {
         payload = jws.payload;
     }
-    const result = { payload };
+    const result = {payload};
     if (jws.protected !== undefined) {
         result.protectedHeader = parsedProt;
     }
@@ -101,8 +98,9 @@ async function flattenedVerify(jws, key, options) {
         result.unprotectedHeader = jws.header;
     }
     if (resolvedKey) {
-        return { ...result, key };
+        return {...result, key};
     }
     return result;
 }
+
 exports.flattenedVerify = flattenedVerify;

@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.setModulusLength = exports.weakMap = void 0;
 exports.weakMap = new WeakMap();
 const getLength = (buf, index) => {
@@ -35,8 +35,11 @@ const getModulusLength = (key) => {
     if (exports.weakMap.has(key)) {
         return exports.weakMap.get(key);
     }
-    const modulusLength = (_b = (_a = key.asymmetricKeyDetails) === null || _a === void 0 ? void 0 : _a.modulusLength) !== null && _b !== void 0 ? _b : (getLengthOfSeqIndex(key.export({ format: 'der', type: 'pkcs1' }), key.type === 'private' ? 1 : 0) -
-        1) <<
+    const modulusLength = (_b = (_a = key.asymmetricKeyDetails) === null || _a === void 0 ? void 0 : _a.modulusLength) !== null && _b !== void 0 ? _b : (getLengthOfSeqIndex(key.export({
+                format: 'der',
+                type: 'pkcs1'
+            }), key.type === 'private' ? 1 : 0) -
+            1) <<
         3;
     exports.weakMap.set(key, modulusLength);
     return modulusLength;

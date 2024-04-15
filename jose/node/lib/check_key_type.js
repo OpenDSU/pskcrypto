@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 const invalid_key_input_js_1 = require("./invalid_key_input.js");
 const is_key_like_js_1 = require("../runtime/is_key_like.js");
 const symmetricTypeCheck = (key) => {
@@ -39,8 +39,7 @@ const checkKeyType = (alg, key, usage) => {
         /^A\d{3}(?:GCM)?KW$/.test(alg);
     if (symmetric) {
         symmetricTypeCheck(key);
-    }
-    else {
+    } else {
         asymmetricTypeCheck(key, usage);
     }
 };

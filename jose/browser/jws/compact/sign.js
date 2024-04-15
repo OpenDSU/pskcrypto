@@ -1,12 +1,15 @@
 const {FlattenedSign} = require('../flattened/sign.js');
+
 class CompactSign {
     constructor(payload) {
         this._flattened = new FlattenedSign(payload);
     }
+
     setProtectedHeader(protectedHeader) {
         this._flattened.setProtectedHeader(protectedHeader);
         return this;
     }
+
     async sign(key, options) {
         const jws = await this._flattened.sign(key, options);
         if (jws.payload === undefined) {

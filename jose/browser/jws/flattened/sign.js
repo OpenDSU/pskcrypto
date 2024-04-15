@@ -1,9 +1,11 @@
 const {encode: base64url} = require('../../runtime/base64url.js');
 const sign = require('../../runtime/sign.js');
 const isDisjoint = require('../../lib/is_disjoint.js');
+const {concat} = require('../../lib/buffer_utils.js');
 const {JWSInvalid} = require('../../util/errors.js');
 const checkKeyType = require('../../lib/check_key_type.js');
 const validateCrit = require('../../lib/validate_crit.js');
+
 class FlattenedSign {
     constructor(payload) {
         if (!(payload instanceof Uint8Array)) {
@@ -11,6 +13,7 @@ class FlattenedSign {
         }
         this._payload = payload;
     }
+
     setProtectedHeader(protectedHeader) {
         if (this._protectedHeader) {
             throw new TypeError('setProtectedHeader can only be called once');
@@ -18,6 +21,7 @@ class FlattenedSign {
         this._protectedHeader = protectedHeader;
         return this;
     }
+
     setUnprotectedHeader(unprotectedHeader) {
         if (this._unprotectedHeader) {
             throw new TypeError('setUnprotectedHeader can only be called once');
@@ -25,6 +29,7 @@ class FlattenedSign {
         this._unprotectedHeader = unprotectedHeader;
         return this;
     }
+
     async sign(key, options) {
         if (!this._protectedHeader && !this._unprotectedHeader) {
             throw new JWSInvalid('either setProtectedHeader or setUnprotectedHeader must be called before #sign()');
@@ -44,7 +49,7 @@ class FlattenedSign {
                 throw new JWSInvalid('The "b64" (base64url-encode payload) Header Parameter must be a boolean');
             }
         }
-        const { alg } = joseHeader;
+        const {alg} = joseHeader;
         if (typeof alg !== 'string' || !alg) {
             throw new JWSInvalid('JWS "alg" (Algorithm) Header Parameter missing or invalid');
         }
@@ -56,8 +61,7 @@ class FlattenedSign {
         let protectedHeader;
         if (this._protectedHeader) {
             protectedHeader = $$.Buffer.from(base64url(JSON.stringify(this._protectedHeader)));
-        }
-        else {
+        } else {
             protectedHeader = $$.Buffer.from('');
         }
         const data = concat(protectedHeader, $$.Buffer.from('.'), payload);

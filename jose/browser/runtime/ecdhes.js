@@ -1,9 +1,9 @@
-const { concat, uint32be, lengthAndInput, concatKdf} = require('../lib/buffer_utils.js');
+const {concat, uint32be, lengthAndInput, concatKdf} = require('../lib/buffer_utils.js');
 const crypto = require('./webcrypto.js');
 const {checkEncCryptoKey} = require('../lib/crypto_key.js');
 const digest = require('./digest.js');
 const invalidKeyInput = require('../lib/invalid_key_input.js');
- const deriveKey = async (publicKey, privateKey, algorithm, keyLength, apu = new Uint8Array(0), apv = new Uint8Array(0)) => {
+const deriveKey = async (publicKey, privateKey, algorithm, keyLength, apu = new Uint8Array(0), apv = new Uint8Array(0)) => {
     if (!crypto.isCryptoKey(publicKey)) {
         throw new TypeError(invalidKeyInput(publicKey, 'CryptoKey'));
     }
@@ -23,13 +23,16 @@ const invalidKeyInput = require('../lib/invalid_key_input.js');
         3));
     return concatKdf(digest, sharedSecret, keyLength, value);
 };
- const generateEpk = async (key) => {
+const generateEpk = async (key) => {
     if (!crypto.isCryptoKey(key)) {
         throw new TypeError(invalidKeyInput(key, 'CryptoKey'));
     }
-    return (await crypto.subtle.generateKey({ name: 'ECDH', namedCurve: key.algorithm.namedCurve }, true, ['deriveBits'])).privateKey;
+    return (await crypto.subtle.generateKey({
+        name: 'ECDH',
+        namedCurve: key.algorithm.namedCurve
+    }, true, ['deriveBits'])).privateKey;
 };
- const ecdhAllowed = (key) => {
+const ecdhAllowed = (key) => {
     if (!crypto.isCryptoKey(key)) {
         throw new TypeError(invalidKeyInput(key, 'CryptoKey'));
     }

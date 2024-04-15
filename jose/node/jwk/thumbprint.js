@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.calculateJwkThumbprint = void 0;
 const digest_js_1 = require("../runtime/digest.js");
 const base64url_js_1 = require("../runtime/base64url.js");
@@ -11,6 +11,7 @@ const check = (value, description) => {
         throw new errors_js_1.JWKInvalid(`${description} missing or invalid`);
     }
 };
+
 async function calculateJwkThumbprint(jwk, digestAlgorithm = 'sha256') {
     if (!(0, is_object_js_1.default)(jwk)) {
         throw new TypeError('JWK must be an object');
@@ -21,21 +22,21 @@ async function calculateJwkThumbprint(jwk, digestAlgorithm = 'sha256') {
             check(jwk.crv, '"crv" (Curve) Parameter');
             check(jwk.x, '"x" (X Coordinate) Parameter');
             check(jwk.y, '"y" (Y Coordinate) Parameter');
-            components = { crv: jwk.crv, kty: jwk.kty, x: jwk.x, y: jwk.y };
+            components = {crv: jwk.crv, kty: jwk.kty, x: jwk.x, y: jwk.y};
             break;
         case 'OKP':
             check(jwk.crv, '"crv" (Subtype of Key Pair) Parameter');
             check(jwk.x, '"x" (Public Key) Parameter');
-            components = { crv: jwk.crv, kty: jwk.kty, x: jwk.x };
+            components = {crv: jwk.crv, kty: jwk.kty, x: jwk.x};
             break;
         case 'RSA':
             check(jwk.e, '"e" (Exponent) Parameter');
             check(jwk.n, '"n" (Modulus) Parameter');
-            components = { e: jwk.e, kty: jwk.kty, n: jwk.n };
+            components = {e: jwk.e, kty: jwk.kty, n: jwk.n};
             break;
         case 'oct':
             check(jwk.k, '"k" (Key Value) Parameter');
-            components = { k: jwk.k, kty: jwk.kty };
+            components = {k: jwk.k, kty: jwk.kty};
             break;
         default:
             throw new errors_js_1.JOSENotSupported('"kty" (Key Type) Parameter missing or unsupported');
@@ -43,4 +44,5 @@ async function calculateJwkThumbprint(jwk, digestAlgorithm = 'sha256') {
     const data = buffer_utils_js_1.encoder.encode(JSON.stringify(components));
     return (0, base64url_js_1.encode)(await (0, digest_js_1.default)(digestAlgorithm, data));
 }
+
 exports.calculateJwkThumbprint = calculateJwkThumbprint;

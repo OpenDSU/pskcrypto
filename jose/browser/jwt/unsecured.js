@@ -4,12 +4,6 @@ const jwtPayload = require('../lib/jwt_claims_set.js');
 const {ProduceJWT} = require('./produce.js');
 
 class UnsecuredJWT extends ProduceJWT {
-    encode() {
-        const header = base64url.encode(JSON.stringify({alg: 'none'}));
-        const payload = base64url.encode(JSON.stringify(this._payload));
-        return `${header}.${payload}.`;
-    }
-
     static decode(jwt, options) {
         if (typeof jwt !== 'string') {
             throw new JWTInvalid('Unsecured JWT must be a string');
@@ -28,6 +22,12 @@ class UnsecuredJWT extends ProduceJWT {
         }
         const payload = jwtPayload(header, base64url.decode(encodedPayload), options);
         return {payload, header};
+    }
+
+    encode() {
+        const header = base64url.encode(JSON.stringify({alg: 'none'}));
+        const payload = base64url.encode(JSON.stringify(this._payload));
+        return `${header}.${payload}.`;
     }
 }
 

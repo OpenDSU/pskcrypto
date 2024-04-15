@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.generateKeyPair = exports.generateSecret = void 0;
 const crypto_1 = require("crypto");
 const util_1 = require("util");
@@ -7,6 +7,7 @@ const random_js_1 = require("./random.js");
 const check_modulus_length_js_1 = require("./check_modulus_length.js");
 const errors_js_1 = require("../util/errors.js");
 const generate = (0, util_1.promisify)(crypto_1.generateKeyPair);
+
 async function generateSecret(alg) {
     let length;
     switch (alg) {
@@ -34,7 +35,9 @@ async function generateSecret(alg) {
     }
     return (0, crypto_1.createSecretKey)((0, random_js_1.default)(new Uint8Array(length >> 3)));
 }
+
 exports.generateSecret = generateSecret;
+
 async function generateKeyPair(alg, options) {
     var _a, _b;
     switch (alg) {
@@ -62,13 +65,13 @@ async function generateKeyPair(alg, options) {
             return keypair;
         }
         case 'ES256':
-            return generate('ec', { namedCurve: 'P-256' });
+            return generate('ec', {namedCurve: 'P-256'});
         case 'ES256K':
-            return generate('ec', { namedCurve: 'secp256k1' });
+            return generate('ec', {namedCurve: 'secp256k1'});
         case 'ES384':
-            return generate('ec', { namedCurve: 'P-384' });
+            return generate('ec', {namedCurve: 'P-384'});
         case 'ES512':
-            return generate('ec', { namedCurve: 'P-521' });
+            return generate('ec', {namedCurve: 'P-521'});
         case 'EdDSA': {
             switch (options === null || options === void 0 ? void 0 : options.crv) {
                 case undefined:
@@ -89,7 +92,7 @@ async function generateKeyPair(alg, options) {
                 case 'P-256':
                 case 'P-384':
                 case 'P-521':
-                    return generate('ec', { namedCurve: (_b = options === null || options === void 0 ? void 0 : options.crv) !== null && _b !== void 0 ? _b : 'P-256' });
+                    return generate('ec', {namedCurve: (_b = options === null || options === void 0 ? void 0 : options.crv) !== null && _b !== void 0 ? _b : 'P-256'});
                 case 'X25519':
                     return generate('x25519');
                 case 'X448':
@@ -101,4 +104,5 @@ async function generateKeyPair(alg, options) {
             throw new errors_js_1.JOSENotSupported('Invalid or unsupported JWK "alg" (Algorithm) Parameter value');
     }
 }
+
 exports.generateKeyPair = generateKeyPair;

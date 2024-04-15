@@ -1,4 +1,5 @@
 const {JOSENotSupported} = require('../util/errors.js');
+
 function validateCrit(Err, recognizedDefault, recognizedOption, protectedHeader, joseHeader) {
     if (joseHeader.crit !== undefined && protectedHeader.crit === undefined) {
         throw new Err('"crit" (Critical) Header Parameter MUST be integrity protected');
@@ -14,8 +15,7 @@ function validateCrit(Err, recognizedDefault, recognizedOption, protectedHeader,
     let recognized;
     if (recognizedOption !== undefined) {
         recognized = new Map([...Object.entries(recognizedOption), ...recognizedDefault.entries()]);
-    }
-    else {
+    } else {
         recognized = recognizedDefault;
     }
     for (const parameter of protectedHeader.crit) {
@@ -24,11 +24,11 @@ function validateCrit(Err, recognizedDefault, recognizedOption, protectedHeader,
         }
         if (joseHeader[parameter] === undefined) {
             throw new Err(`Extension Header Parameter "${parameter}" is missing`);
-        }
-        else if (recognized.get(parameter) && protectedHeader[parameter] === undefined) {
+        } else if (recognized.get(parameter) && protectedHeader[parameter] === undefined) {
             throw new Err(`Extension Header Parameter "${parameter}" MUST be integrity protected`);
         }
     }
     return new Set(protectedHeader.crit);
 }
+
 module.exports = validateCrit;

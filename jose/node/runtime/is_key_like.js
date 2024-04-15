@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.types = void 0;
 const webcrypto_js_1 = require("./webcrypto.js");
 const is_key_object_js_1 = require("./is_key_object.js");

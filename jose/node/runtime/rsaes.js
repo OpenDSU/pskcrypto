@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.decrypt = exports.encrypt = void 0;
 const crypto_1 = require("crypto");
 const check_modulus_length_js_1 = require("./check_modulus_length.js");
@@ -40,6 +40,7 @@ const resolveOaepHash = (alg) => {
             return undefined;
     }
 };
+
 function ensureKeyObject(key, alg, ...usages) {
     if ((0, is_key_object_js_1.default)(key)) {
         return key;
@@ -50,12 +51,13 @@ function ensureKeyObject(key, alg, ...usages) {
     }
     throw new TypeError((0, invalid_key_input_js_1.default)(key, 'KeyObject', 'CryptoKey'));
 }
+
 const encrypt = async (alg, key, cek) => {
     const padding = resolvePadding(alg);
     const oaepHash = resolveOaepHash(alg);
     const keyObject = ensureKeyObject(key, alg, 'wrapKey', 'encrypt');
     checkKey(keyObject, alg);
-    return (0, crypto_1.publicEncrypt)({ key: keyObject, oaepHash, padding }, cek);
+    return (0, crypto_1.publicEncrypt)({key: keyObject, oaepHash, padding}, cek);
 };
 exports.encrypt = encrypt;
 const decrypt = async (alg, key, encryptedKey) => {
@@ -63,6 +65,6 @@ const decrypt = async (alg, key, encryptedKey) => {
     const oaepHash = resolveOaepHash(alg);
     const keyObject = ensureKeyObject(key, alg, 'unwrapKey', 'decrypt');
     checkKey(keyObject, alg);
-    return (0, crypto_1.privateDecrypt)({ key: keyObject, oaepHash, padding }, encryptedKey);
+    return (0, crypto_1.privateDecrypt)({key: keyObject, oaepHash, padding}, encryptedKey);
 };
 exports.decrypt = decrypt;

@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 const errors_js_1 = require("../util/errors.js");
 const buffer_utils_js_1 = require("./buffer_utils.js");
 const epoch_js_1 = require("./epoch.js");
@@ -16,7 +16,7 @@ const checkAudiencePresence = (audPayload, audOption) => {
     return false;
 };
 exports.default = (protectedHeader, encodedPayload, options = {}) => {
-    const { typ } = options;
+    const {typ} = options;
     if (typ &&
         (typeof protectedHeader.typ !== 'string' ||
             normalizeTyp(protectedHeader.typ) !== normalizeTyp(typ))) {
@@ -25,21 +25,20 @@ exports.default = (protectedHeader, encodedPayload, options = {}) => {
     let payload;
     try {
         payload = JSON.parse(buffer_utils_js_1.decoder.decode(encodedPayload));
-    }
-    catch {
+    } catch {
     }
     if (!(0, is_object_js_1.default)(payload)) {
         throw new errors_js_1.JWTInvalid('JWT Claims Set must be a top-level JSON object');
     }
-    const { issuer } = options;
+    const {issuer} = options;
     if (issuer && !(Array.isArray(issuer) ? issuer : [issuer]).includes(payload.iss)) {
         throw new errors_js_1.JWTClaimValidationFailed('unexpected "iss" claim value', 'iss', 'check_failed');
     }
-    const { subject } = options;
+    const {subject} = options;
     if (subject && payload.sub !== subject) {
         throw new errors_js_1.JWTClaimValidationFailed('unexpected "sub" claim value', 'sub', 'check_failed');
     }
-    const { audience } = options;
+    const {audience} = options;
     if (audience &&
         !checkAudiencePresence(payload.aud, typeof audience === 'string' ? [audience] : audience)) {
         throw new errors_js_1.JWTClaimValidationFailed('unexpected "aud" claim value', 'aud', 'check_failed');
@@ -58,7 +57,7 @@ exports.default = (protectedHeader, encodedPayload, options = {}) => {
         default:
             throw new TypeError('Invalid clockTolerance option type');
     }
-    const { currentDate } = options;
+    const {currentDate} = options;
     const now = (0, epoch_js_1.default)(currentDate || new Date());
     if (payload.iat !== undefined || options.maxTokenAge) {
         if (typeof payload.iat !== 'number') {

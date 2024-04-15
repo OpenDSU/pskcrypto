@@ -21,7 +21,7 @@ class ECEphemeralKeyAgreement {
     generateSharedSecretForPublicKey = (theirECDHPublicKey) => {
         try {
             this.ecdh.getPublicKey()
-        } catch(error) {
+        } catch (error) {
             throw new Error('You cannot generate a shared secret for another public key without calling generateEphemeralPublicKey() first')
         }
         return this.ecdh.computeSecret(theirECDHPublicKey);

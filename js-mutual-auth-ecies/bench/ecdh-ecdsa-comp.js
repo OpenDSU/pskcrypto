@@ -20,21 +20,21 @@ let aliceECSigningKeyPair = crypto.generateKeyPairSync(
 let bobECDH = crypto.createECDH(config.curveName)
 let bobECDHPublicKey = bobECDH.generateKeys();
 
-var startTime = process.hrtime();
-for (let i = 0 ; i < iterations ; ++i) {
+let startTime = process.hrtime();
+for (let i = 0; i < iterations; ++i) {
     let ephemeralKA = new mycrypto.ECEphemeralKeyAgreement()
     ephemeralKA.computeSharedSecretFromKeyPair(aliceECDHPrivateKey, bobECDHPublicKey)
 }
-var totalHRTime = process.hrtime(startTime);
-var ecdhTimeSecs = (totalHRTime[0]* NS_PER_SEC + totalHRTime[1]) / NS_PER_SEC
+let totalHRTime = process.hrtime(startTime);
+let ecdhTimeSecs = (totalHRTime[0] * NS_PER_SEC + totalHRTime[1]) / NS_PER_SEC
 
 startTime = process.hrtime();
-for (let i = 0 ; i < iterations ; ++i) {
+for (let i = 0; i < iterations; ++i) {
     mycrypto.computeDigitalSignature(aliceECSigningKeyPair.privateKey, message, config)
 }
 totalHRTime = process.hrtime(startTime);
-var ecdsaTimeSecs = (totalHRTime[0]* NS_PER_SEC + totalHRTime[1]) / NS_PER_SEC
+let ecdsaTimeSecs = (totalHRTime[0] * NS_PER_SEC + totalHRTime[1]) / NS_PER_SEC
 
 console.log("ECDH Derive Shared Secret vs ECDSA Performance Comparison: " + iterations + " iterations")
-console.log("ECDH Derive Shared Secret benchmark results: total_time = " + ecdhTimeSecs + " (secs), throughput = " + (iterations/ecdhTimeSecs) + " (ops/sec), Avg_Op_Time = " + (ecdhTimeSecs/iterations) + " (secs)")
-console.log("ECDSA benchmark results: total_time = " + ecdsaTimeSecs + " (secs), throughput = " + (iterations/ecdsaTimeSecs) + " (ops/sec), Avg_Op_Time = " + (ecdsaTimeSecs/iterations) + " (secs)")
+console.log("ECDH Derive Shared Secret benchmark results: total_time = " + ecdhTimeSecs + " (secs), throughput = " + (iterations / ecdhTimeSecs) + " (ops/sec), Avg_Op_Time = " + (ecdhTimeSecs / iterations) + " (secs)")
+console.log("ECDSA benchmark results: total_time = " + ecdsaTimeSecs + " (secs), throughput = " + (iterations / ecdsaTimeSecs) + " (ops/sec), Avg_Op_Time = " + (ecdsaTimeSecs / iterations) + " (secs)")

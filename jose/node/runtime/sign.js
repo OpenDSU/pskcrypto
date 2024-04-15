@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 const crypto = require("crypto");
 const util_1 = require("util");
 const dsa_digest_js_1 = require("./dsa_digest.js");
@@ -9,8 +9,7 @@ const get_sign_verify_key_js_1 = require("./get_sign_verify_key.js");
 let oneShotSign;
 if (crypto.sign.length > 3) {
     oneShotSign = (0, util_1.promisify)(crypto.sign);
-}
-else {
+} else {
     oneShotSign = crypto.sign;
 }
 const sign = async (alg, key, data) => {

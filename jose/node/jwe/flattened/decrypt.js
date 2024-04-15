@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.flattenedDecrypt = void 0;
 const base64url_js_1 = require("../../runtime/base64url.js");
 const decrypt_js_1 = require("../../runtime/decrypt.js");
@@ -12,6 +12,7 @@ const buffer_utils_js_1 = require("../../lib/buffer_utils.js");
 const cek_js_1 = require("../../lib/cek.js");
 const validate_crit_js_1 = require("../../lib/validate_crit.js");
 const validate_algorithms_js_1 = require("../../lib/validate_algorithms.js");
+
 async function flattenedDecrypt(jwe, key, options) {
     var _a;
     if (!(0, is_object_js_1.default)(jwe)) {
@@ -49,8 +50,7 @@ async function flattenedDecrypt(jwe, key, options) {
         const protectedHeader = (0, base64url_js_1.decode)(jwe.protected);
         try {
             parsedProt = JSON.parse(buffer_utils_js_1.decoder.decode(protectedHeader));
-        }
-        catch {
+        } catch {
             throw new errors_js_1.JWEInvalid('JWE Protected Header is invalid');
         }
     }
@@ -71,7 +71,7 @@ async function flattenedDecrypt(jwe, key, options) {
             throw new errors_js_1.JOSENotSupported('Unsupported JWE "zip" (Compression Algorithm) Header Parameter value');
         }
     }
-    const { alg, enc } = joseHeader;
+    const {alg, enc} = joseHeader;
     if (typeof alg !== 'string' || !alg) {
         throw new errors_js_1.JWEInvalid('missing JWE Algorithm (alg) in JWE Header');
     }
@@ -99,8 +99,7 @@ async function flattenedDecrypt(jwe, key, options) {
     let cek;
     try {
         cek = await (0, decrypt_key_management_js_1.default)(alg, key, encryptedKey, joseHeader);
-    }
-    catch (err) {
+    } catch (err) {
         if (err instanceof TypeError) {
             throw err;
         }
@@ -112,15 +111,14 @@ async function flattenedDecrypt(jwe, key, options) {
     let additionalData;
     if (jwe.aad !== undefined) {
         additionalData = (0, buffer_utils_js_1.concat)(protectedHeader, buffer_utils_js_1.encoder.encode('.'), buffer_utils_js_1.encoder.encode(jwe.aad));
-    }
-    else {
+    } else {
         additionalData = protectedHeader;
     }
     let plaintext = await (0, decrypt_js_1.default)(enc, cek, (0, base64url_js_1.decode)(jwe.ciphertext), iv, tag, additionalData);
     if (joseHeader.zip === 'DEF') {
         plaintext = await ((options === null || options === void 0 ? void 0 : options.inflateRaw) || zlib_js_1.inflate)(plaintext);
     }
-    const result = { plaintext };
+    const result = {plaintext};
     if (jwe.protected !== undefined) {
         result.protectedHeader = parsedProt;
     }
@@ -134,8 +132,9 @@ async function flattenedDecrypt(jwe, key, options) {
         result.unprotectedHeader = jwe.header;
     }
     if (resolvedKey) {
-        return { ...result, key };
+        return {...result, key};
     }
     return result;
 }
+
 exports.flattenedDecrypt = flattenedDecrypt;

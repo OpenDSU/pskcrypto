@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.unwrap = exports.wrap = void 0;
 const buffer_1 = require("buffer");
 const crypto_1 = require("crypto");
@@ -11,11 +11,13 @@ const crypto_key_js_1 = require("../lib/crypto_key.js");
 const is_key_object_js_1 = require("./is_key_object.js");
 const invalid_key_input_js_1 = require("../lib/invalid_key_input.js");
 const ciphers_js_1 = require("./ciphers.js");
+
 function checkKeySize(key, alg) {
     if (key.symmetricKeySize << 3 !== parseInt(alg.substr(1, 3), 10)) {
         throw new TypeError(`Invalid key size for alg: ${alg}`);
     }
 }
+
 function ensureKeyObject(key, alg, usage) {
     if ((0, is_key_object_js_1.default)(key)) {
         return key;
@@ -29,6 +31,7 @@ function ensureKeyObject(key, alg, usage) {
     }
     throw new TypeError((0, invalid_key_input_js_1.default)(key, 'KeyObject', 'CryptoKey', 'Uint8Array'));
 }
+
 const wrap = async (alg, key, cek) => {
     const size = parseInt(alg.substr(1, 3), 10);
     const algorithm = `aes${size}-wrap`;

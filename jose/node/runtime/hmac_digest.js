@@ -1,6 +1,7 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 const errors_js_1 = require("../util/errors.js");
+
 function hmacDigest(alg) {
     switch (alg) {
         case 'HS256':
@@ -13,4 +14,5 @@ function hmacDigest(alg) {
             throw new errors_js_1.JOSENotSupported(`alg ${alg} is not supported either by JOSE or your javascript runtime`);
     }
 }
+
 exports.default = hmacDigest;

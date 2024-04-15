@@ -1,6 +1,7 @@
 function isObjectLike(value) {
     return typeof value === 'object' && value !== null;
 }
+
 module.exports = function isObject(input) {
     if (!isObjectLike(input) || Object.prototype.toString.call(input) !== '[object Object]') {
         return false;
