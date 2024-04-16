@@ -193,7 +193,8 @@ In the following, we elaborate on the concrete meaning of all these options.
 > ### timingSafeEqual(a, b)
 
 - #### **Description:
-  ** Constant-time equality evaluation algorithm that is suitable for cryptographic applications. We employ the `timingSafeEqual()` function of NodeJS's `crypto` module as the default.
+  ** Constant-time equality evaluation algorithm that is suitable for cryptographic applications. We employ
+  the `timingSafeEqual()` function of NodeJS's `crypto` module as the default.
 - #### **a**: The first input value, typically of type `Buffer`.
 - #### **b**: The second input value, typically of type `Buffer`.
 - #### **Returns**:  A boolean value that will be set to `true` if `a` is equal to `b`, or `false` otherwise.
@@ -203,7 +204,8 @@ In the following, we elaborate on the concrete meaning of all these options.
 > ### getRandomBytes(size)
 
 - #### **Description:
-  ** A cryptographically strong source of entropy/randomness. We employ the `randomBytes()` function of NodeJS's `crypto` module as the default.
+  ** A cryptographically strong source of entropy/randomness. We employ the `randomBytes()` function of
+  NodeJS's `crypto` module as the default.
 - #### **size**: The amount of bytes to generate.
 - #### **Returns**:  A randomized `Buffer`.
 
@@ -239,7 +241,9 @@ to `config.js.js` for a complete list of cryptographic parameters).
 - #### **key**: The symmetric encryption key as a `Buffer` type.
 - #### **plaintext**: A `Buffer` that contains the data that will be used to produce the ciphertext.
 - #### **iv
-  **: The cipher's initialization vector (IV), a common parameter for the overwhelming majority of symmetric ciphers. Internally, the ECIES implementations of `encrypt()` generate cryptographically random and fresh IVs for each encrypted payload, so this is not "directly visible" to developers.
+  **: The cipher's initialization vector (IV), a common parameter for the overwhelming majority of symmetric ciphers.
+  Internally, the ECIES implementations of `encrypt()` generate cryptographically random and fresh IVs for each
+  encrypted payload, so this is not "directly visible" to developers.
 - #### **Returns**:  The computed ciphertext as a `Buffer` type.
 
 <br>
@@ -248,10 +252,13 @@ to `config.js.js` for a complete list of cryptographic parameters).
 
 - #### **Description:** Symmetric decryption algorithm.
 - #### **key
-  **: The symmetric decryption key as a `Buffer` type. It should be the same as the one that was used for encryption, although again this is handled internally by the ECIES implementations of `decrypt()` and, thus, is not "directly visible" to developers.
+  **: The symmetric decryption key as a `Buffer` type. It should be the same as the one that was used for encryption,
+  although again this is handled internally by the ECIES implementations of `decrypt()` and, thus, is not "directly
+  visible" to developers.
 - #### **ciphertext**: A `Buffer` that contains the ciphertext that will be used to produce the plaintext.
 - #### **iv
-  **: The cipher's initialization vector (IV), which is transmitted by the sender along with the ciphertext and the output of the KMAC function.
+  **: The cipher's initialization vector (IV), which is transmitted by the sender along with the ciphertext and the
+  output of the KMAC function.
 - #### **Returns**:  The plaintext as a `Buffer` type.
 
 The `KMAC` property of the module's configuration is an object that provides two callable functions, which are defined
@@ -261,7 +268,8 @@ as follows:
 > ### computeKMAC(key, data)
 
 - #### **Description:
-  ** Computes a message authentication code (MAC) based on the input key and the data for which we want to provide message integrity.
+  ** Computes a message authentication code (MAC) based on the input key and the data for which we want to provide
+  message integrity.
 - #### **key**: The key, as a `Buffer` type, that will be used as input to the computation of the MAC.
 - #### **data**: A `Buffer` that contains the data that we want to provide integrity for.
 - #### **Returns**:  The computed MAC as a `Buffer` type, to which we interchangeably refer to as `tag` as well.
@@ -271,12 +279,14 @@ as follows:
 > ### verifyKMAC(tag, key, data)
 
 - #### **Description:
-  ** Verification algorithm for message authentication codes, which allows us to infer if the data were tampered with during transit.
+  ** Verification algorithm for message authentication codes, which allows us to infer if the data were tampered with
+  during transit.
 - #### **tag**: The MAC, as a `Buffer` type, as was computed and transmitted by the sender.
 - #### **key**: The key, as a `Buffer` type, that will be used as input to the computation of the MAC.
 - #### **data**: A `Buffer` that contains the data against which we want to verify the input MAC.
 - #### **Returns
-  **:  A boolean value indicating whether the input MAC (`tag`) is valid (`true`) based on the input data, or not (`false`).
+  **:  A boolean value indicating whether the input MAC (`tag`) is valid (`true`) based on the input data, or
+  not (`false`).
 
 The `ECEphemeralKeyAgreement` property is a class that provides an interface that can be used for ECDH and ECDHE and
 provides the following callable functions:
@@ -285,7 +295,8 @@ provides the following callable functions:
 > ### generateEphemeralPublicKey()
 
 - #### **Description:
-  ** An integral part of the encryption process of ECIES is the generation of an ephemeral asymmetric key pair, which is subsequently used to derive a shared secret (refer to the next function) based on the public key of the receiver.
+  ** An integral part of the encryption process of ECIES is the generation of an ephemeral asymmetric key pair, which is
+  subsequently used to derive a shared secret (refer to the next function) based on the public key of the receiver.
 - #### **Returns**:  An ephemeral ECDH public key.
 
 <br>
@@ -293,7 +304,8 @@ provides the following callable functions:
 > ### generateSharedSecretForPublicKey(theirECDHPublicKey)
 
 - #### **Description:** This function should be called **exactly after
-  ** the `generateEphemeralPublicKey()` function (described above) to generate the shared secret that is, subsequently, used to derive the symmetric encryption and KMAC keys.
+  ** the `generateEphemeralPublicKey()` function (described above) to generate the shared secret that is, subsequently,
+  used to derive the symmetric encryption and KMAC keys.
 - #### **theirECDHPublicKey**: The ECDH public key of the receiver.
 - #### **Returns**:  The shared secret as a `Buffer` type.
 
@@ -302,7 +314,8 @@ provides the following callable functions:
 > ### computeSharedSecretFromKeyPair(myECDHPrivateKey, theirECDHPublicKey)
 
 - #### **Description:
-  ** This function is, typically, invoked by the receiver to compute the shared secret, which will, subsequently, allow her to derive the symmetric encryption and KMAC keys.
+  ** This function is, typically, invoked by the receiver to compute the shared secret, which will, subsequently, allow
+  her to derive the symmetric encryption and KMAC keys.
 - #### **myECDHPrivateKey**: The receiver's private ECDH key.
 - #### **theirECDHPublicKey**: The (ephemeral) ECDH public key.
 - #### **Returns**: The shared secret as a `Buffer` type.
@@ -318,7 +331,8 @@ signature of the function is as follows:
 > ### KDF(x, outputByteSize[, hashFunction = config.hashFunctionName][, hashSize = config.hashSize])
 
 - #### **Description:
-  ** A cryptographically secure key derivation function (KDF). The default implementation employs KDF2, which is defined in ISO/IEC 18033-2.
+  ** A cryptographically secure key derivation function (KDF). The default implementation employs KDF2, which is defined
+  in ISO/IEC 18033-2.
 - #### **x**: A `Buffer` based on which the KDF will produce its expanded (derived) output.
 - #### **outputByteSize**: An integer indicating the size of the desired output.
 - #### **hashFunction**: The hash function that will be used by the KDF, defaults to SHA-2-256 currently.
@@ -353,7 +367,8 @@ The functions exposed by the `PublicKeyDeserializer` functor are defined as foll
 
 - #### **Description:** Deserialization function for ECDH public keys.
 - #### **ecdhPublicKeySerialized
-  **: A serialized ECDH public key, i.e., as it is output by the `PublicKeySerializer.serializeECDHPublicKey()` function.
+  **: A serialized ECDH public key, i.e., as it is output by the `PublicKeySerializer.serializeECDHPublicKey()`
+  function.
 - #### **Returns**: The deserialized (decoded) ECDH public key.
 
 <br>
@@ -362,7 +377,8 @@ The functions exposed by the `PublicKeyDeserializer` functor are defined as foll
 
 - #### **Description:** Deserialization function for EC public keys that are used for digital signature verification.
 - #### **ecSigVerPublicKeySerialized
-  **: A serialized EC public key, i.e., as it is output by the `PublicKeySerializer.serializeECSigVerPublicKey()` function.
+  **: A serialized EC public key, i.e., as it is output by the `PublicKeySerializer.serializeECSigVerPublicKey()`
+  function.
 - #### **Returns**: The deserialized (decoded) EC public key.
 
 Lastly, the `params` property of the default cryptographic configuration contains values that are required by the
@@ -462,7 +478,8 @@ configuration options that were previously discussed, which are defined as follo
 > ### getDecodedECDHPublicKeyFromEncEnvelope(encEnvelope)
 
 - #### **Description:
-  ** This is a helper function that is intended to be used by the receiver so that he can easily get, on input an encrypted envelope object (described below), the public ECDH key used by the sender of the message.
+  ** This is a helper function that is intended to be used by the receiver so that he can easily get, on input an
+  encrypted envelope object (described below), the public ECDH key used by the sender of the message.
 - #### **encEnvelope**: An encrypted envelope object (described below).
 - #### **Returns**:  The deserialized (decoded) ECDH public key.
 
@@ -506,10 +523,12 @@ A succinct overview of the fields of an encrypted envelope object is as follows:
 > ### decrypt(receiverECDHPrivateKey, encEnvelope)
 
 - #### **receiverECDHPrivateKey
-  **: The receiver's ECDH private key that corresponds to the one encoded in the `to_ecdh` field of the input encrypted envelope.
+  **: The receiver's ECDH private key that corresponds to the one encoded in the `to_ecdh` field of the input encrypted
+  envelope.
 - #### **encEnvelope**: An encrypted envelope object as is output by the `encrypt()` function.
 - #### **Returns
-  **:  An Object with two properties, i.e., `from_ecsig`, which contains the EC public verification key of the sender, and `message`, which contains the message as a `Buffer` type.
+  **:  An Object with two properties, i.e., `from_ecsig`, which contains the EC public verification key of the sender,
+  and `message`, which contains the message as a `Buffer` type.
 
 This function should **always** be invoked in a `try-catch` block as it can throw exceptions for various reasons.
 
@@ -588,7 +607,8 @@ options that were previously discussed, which are defined as follows:
 > ### getDecodedECDHPublicKeyFromEncEnvelope(encEnvelope)
 
 - #### **Description:
-  ** This is a helper function that is intended to be used by the receiver so that he can easily get, on input an encrypted envelope object (described below), the public ECDH key used by the sender of the message.
+  ** This is a helper function that is intended to be used by the receiver so that he can easily get, on input an
+  encrypted envelope object (described below), the public ECDH key used by the sender of the message.
 - #### **encEnvelope**: An encrypted envelope object (described below).
 - #### **Returns**:  The deserialized (decoded) ECDH public key.
 
@@ -631,7 +651,8 @@ A succinct overview of the fields of an encrypted envelope object is as follows:
 
 - #### **Description:** The decryption function of this ECIES implementation.
 - #### **receiverECDHPrivateKey
-  **:  The receiver's ECDH private key that corresponds to the one encoded in the to_ecdh field of the input encrypted envelope.
+  **:  The receiver's ECDH private key that corresponds to the one encoded in the to_ecdh field of the input encrypted
+  envelope.
 - #### **encEnvelope**: An encrypted envelope object as is output by the `encrypt()` function.
 - #### **Returns**:  The decrypted message as a `Buffer` type.
 
