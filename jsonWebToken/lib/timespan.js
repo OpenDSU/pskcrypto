@@ -3,8 +3,5 @@ module.exports = function (time, iat) {
 
     if (typeof time === 'number') {
         return timestamp + time;
-    } else {
-
     }
-
 };

@@ -77,19 +77,10 @@ module.exports = function (jwtString, secretOrPublicKey, options, callback) {
     }
 
     let header = decodedToken.header;
-    let getSecret;
 
-    if (typeof secretOrPublicKey === 'function') {
-        if (!callback) {
-            return done(new JsonWebTokenError('verify must be called asynchronous if secret or public key is provided as a callback'));
-        }
-
-        getSecret = secretOrPublicKey;
-    } else {
-        getSecret = function (header, secretCallback) {
-            return secretCallback(null, secretOrPublicKey);
-        };
-    }
+    const getSecret = function (header, secretCallback) {
+        return secretCallback(null, secretOrPublicKey);
+    };
 
     return getSecret(header, function (err, secretOrPublicKey) {
         if (err) {
