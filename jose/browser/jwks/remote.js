@@ -105,7 +105,7 @@ class RemoteJWKSet {
 
     async reload() {
         if (!this._pendingFetch) {
-            this._pendingFetch = fetchJwks(this._url, this._timeoutDuration, this._options)
+            this._pendingFetch = fetchJwks(this._url, this._timeoutDuration)
                 .then((json) => {
                     if (typeof json !== 'object' ||
                         !json ||

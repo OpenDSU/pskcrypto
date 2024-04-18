@@ -26,7 +26,7 @@ exports.extractPayload = function extractPayload(hashStringHexa, pos, size) {
         result = hashStringHexa.substring(pos, pos + size);
     } else {
 
-        if (0 != end) {
+        if (0 !== end) {
             result = hashStringHexa.substring(0, end)
         } else {
             result = "";
@@ -39,7 +39,7 @@ exports.extractPayload = function extractPayload(hashStringHexa, pos, size) {
 
 exports.fillPayload = function fillPayload(payload, pos, size) {
     let sz = 64;
-    let result = "";
+    let result;
 
     let end = (pos + size) % sz;
 
@@ -164,13 +164,13 @@ exports.getJSONFromSignature = function getJSONFromSignature(signature, size) {
     };
     let a = signature.split(":");
     result.agent = a[0];
-    result.counter = parseInt(a[1], "hex");
+    result.counter = parseInt(a[1]);
     result.nextPublic = a[2];
 
     let proof = a[3]
 
 
-    if (proof.length / size != 64) {
+    if (proof.length / size !== 64) {
         throw new Error("Invalid signature " + proof);
     }
 

@@ -1,4 +1,3 @@
-"use strict";
 Object.defineProperty(exports, "__esModule", {value: true});
 exports.fromSPKI = exports.fromPKCS8 = exports.toPKCS8 = exports.toSPKI = void 0;
 const crypto_1 = require("crypto");
@@ -32,13 +31,13 @@ const toPKCS8 = (key) => {
 };
 exports.toPKCS8 = toPKCS8;
 const fromPKCS8 = (pem) => (0, crypto_1.createPrivateKey)({
-    key: buffer_1.Buffer.from(pem.replace(/(?:-----(?:BEGIN|END) PRIVATE KEY-----|\s)/g, ''), 'base64'),
+    key: buffer_1.Buffer.from(pem.replace(/-----(?:BEGIN|END) PRIVATE KEY-----|\s/g, ''), 'base64'),
     type: 'pkcs8',
     format: 'der',
 });
 exports.fromPKCS8 = fromPKCS8;
 const fromSPKI = (pem) => (0, crypto_1.createPublicKey)({
-    key: buffer_1.Buffer.from(pem.replace(/(?:-----(?:BEGIN|END) PUBLIC KEY-----|\s)/g, ''), 'base64'),
+    key: buffer_1.Buffer.from(pem.replace(/-----(?:BEGIN|END) PUBLIC KEY-----|\s/g, ''), 'base64'),
     type: 'spki',
     format: 'der',
 });

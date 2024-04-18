@@ -27,10 +27,9 @@ function parseElement(bytes) {
             tag = tag * 128 + bytes[position] - 0x80;
             position++;
         }
-        tag = tag * 128 + bytes[position] - 0x80;
         position++;
     }
-    let length = 0;
+    let length;
     if (bytes[position] < 0x80) {
         length = bytes[position];
         position++;
@@ -68,7 +67,7 @@ function spkiFromX509(buf) {
 }
 
 function getSPKI(x509) {
-    const pem = x509.replace(/(?:-----(?:BEGIN|END) CERTIFICATE-----|\s)/g, '');
+    const pem = x509.replace(/-----(?:BEGIN|END) CERTIFICATE-----|\s/g, '');
     const raw = decodeBase64(pem);
     return formatPEM(spkiFromX509(raw), 'PUBLIC KEY');
 }
@@ -99,7 +98,7 @@ async function importJWK(jwk, alg, octAsKeyObject) {
     if (!isObject(jwk)) {
         throw new TypeError('JWK must be an object');
     }
-    alg || (alg = jwk.alg);
+    alg = alg || jwk.alg;
     if (typeof alg !== 'string' || !alg) {
         throw new TypeError('"alg" argument is required when "jwk.alg" is not present');
     }
@@ -108,7 +107,7 @@ async function importJWK(jwk, alg, octAsKeyObject) {
             if (typeof jwk.k !== 'string' || !jwk.k) {
                 throw new TypeError('missing "k" (Key Value) Parameter value');
             }
-            octAsKeyObject !== null && octAsKeyObject !== void 0 ? octAsKeyObject : (octAsKeyObject = jwk.ext !== true);
+            octAsKeyObject = octAsKeyObject !== null && octAsKeyObject !== void 0 ? octAsKeyObject : (jwk.ext !== true);
             if (octAsKeyObject) {
                 return asKeyObject({...jwk, alg, ext: false});
             }
